@@ -28,21 +28,21 @@ extension BuilderProtocol {
 //        hasher.combine(self.get(.value))
     }
     
-    public func insertTo(_ arr: [Self]) -> [Self] {
-        [self] + (self.existsIn(arr) ? self.removeFrom(arr) : arr)
-    }
-    
-    public func existsIn(_ arr: [Self]) -> Bool {
-        arr.contains(where: self.equalsTo)
-    }
-    
-    public func removeFrom(_ arr: [Self]) -> [Self] {
-        arr.filter { !self.equalsTo($0) }
-    }
-    
-    public func equalsTo(_ other: Self) -> Bool {
-        self.hashValue == other.hashValue
-    }
+//    public func insertTo(_ arr: [Self]) -> [Self] {
+//        [self] + (self.existsIn(arr) ? self.removeFrom(arr) : arr)
+//    }
+//    
+//    public func existsIn(_ arr: [Self]) -> Bool {
+//        arr.contains(where: self.equalsTo)
+//    }
+//    
+//    public func removeFrom(_ arr: [Self]) -> [Self] {
+//        arr.filter { !self.equalsTo($0) }
+//    }
+//    
+//    public func equalsTo(_ other: Self) -> Bool {
+//        self.hashValue == other.hashValue
+//    }
     
 //    public func filter(_ arr: [any PropertyProtocol]) -> [Self] {
 //        arr.filter(self.typeEnum.equals).map(Self.init)

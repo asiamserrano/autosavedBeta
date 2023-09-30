@@ -44,6 +44,7 @@
 		1E9297832AC7CDA900555CFF /* Main+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9297822AC7CDA900555CFF /* Main+View.swift */; };
 		1E9297852AC7CE8F00555CFF /* State+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9297842AC7CE8F00555CFF /* State+Extension.swift */; };
 		1E9297872AC7D14200555CFF /* Inputs+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9297862AC7D14200555CFF /* Inputs+View.swift */; };
+		1E9297892AC801AB00555CFF /* NSSet+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9297882AC801AB00555CFF /* NSSet+Extension.swift */; };
 		6200A33A2AC6915B00206FFA /* Property+Class.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6200A3392AC6915A00206FFA /* Property+Class.swift */; };
 		6200A33C2AC6916400206FFA /* Game+Class.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6200A33B2AC6916400206FFA /* Game+Class.swift */; };
 		6200A3472AC694BE00206FFA /* Context+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6200A3462AC694BE00206FFA /* Context+Extension.swift */; };
@@ -100,6 +101,7 @@
 		1E9297822AC7CDA900555CFF /* Main+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Main+View.swift"; sourceTree = "<group>"; };
 		1E9297842AC7CE8F00555CFF /* State+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "State+Extension.swift"; sourceTree = "<group>"; };
 		1E9297862AC7D14200555CFF /* Inputs+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Inputs+View.swift"; sourceTree = "<group>"; };
+		1E9297882AC801AB00555CFF /* NSSet+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSSet+Extension.swift"; sourceTree = "<group>"; };
 		6200A3392AC6915A00206FFA /* Property+Class.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Property+Class.swift"; sourceTree = "<group>"; };
 		6200A33B2AC6916400206FFA /* Game+Class.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Game+Class.swift"; sourceTree = "<group>"; };
 		6200A3462AC694BE00206FFA /* Context+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Context+Extension.swift"; sourceTree = "<group>"; };
@@ -275,6 +277,7 @@
 				6200A3572AC6961C00206FFA /* String?+Extension.swift */,
 				6200A3532AC695B300206FFA /* View+Extension.swift */,
 				1E9297842AC7CE8F00555CFF /* State+Extension.swift */,
+				1E9297882AC801AB00555CFF /* NSSet+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -433,6 +436,7 @@
 				6200A34D2AC6956400206FFA /* Image+Extension.swift in Sources */,
 				1E9297742AC7870A00555CFF /* Property+Dictionary.swift in Sources */,
 				1E9297592AC74CE700555CFF /* Input+Builder.swift in Sources */,
+				1E9297892AC801AB00555CFF /* NSSet+Extension.swift in Sources */,
 				1E92974E2AC749E100555CFF /* Platform+Enum.swift in Sources */,
 				1E9297532AC74A3600555CFF /* PC+Enum.swift in Sources */,
 				1E9297542AC74A3600555CFF /* PlayStation+Enum.swift in Sources */,

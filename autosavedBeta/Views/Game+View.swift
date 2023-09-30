@@ -16,11 +16,7 @@ struct GameView: View {
     @State var release: Date = .today
     @State var image: Data? = nil
 
-    @StateObject var inputs: InputDictionary = .init()
-    @StateObject var modes: ModeDictionary = .init()
-    @StateObject var platforms: PlatformDictionary = .init()
-    
-//    @ObservedObject var properties: PropertyDictionary
+    @State var nsset: NSSet = .init()
 
     init() { }
 
@@ -31,7 +27,7 @@ struct GameView: View {
         self.title = game.title
         self.release = game.release
         self.image = game.image
-        self.properties = game.properties
+        self.nsset = game.properties
     }
 
     private var editing: Bool { self.editMode.isEditing }
@@ -40,13 +36,8 @@ struct GameView: View {
         InputEnum.all.filter { $0 == .series ? self.editing : true }
     }
 
-
-
     private var series: String? {
-        let sd: StringDictionary = self.properties.input.get(.series)
-        if let key: String = sd.keys.first, let string: String = sd.get(key) {
-            return string
-        } else { return nil }
+        self.nsset.filterInputs(.series).first?.value
     }
 
     var body: some View {
@@ -66,7 +57,7 @@ struct GameView: View {
 //                }
 //            }
 
-            ForEach(self.inputEnums, id:\.self) { InputsView($editMode, $0, self.inputs) }
+//            ForEach(self.inputEnums, id:\.self) { InputsView($editMode, $0, self.inputs) }
 
 //            ModesView($editMode, self.modes)
 //

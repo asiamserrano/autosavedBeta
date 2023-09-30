@@ -13,8 +13,7 @@ public class GameBuilder: IdentifiableProtocol {
     public var release: Date = .today
     public var owned: Bool = true
     public var image: Data? = nil
-    
-    public var properties: PropertyDictionary = .init()
+    public var properties: NSSet = .init()
     
     public init() { }
     
@@ -58,7 +57,7 @@ extension GameBuilder {
     
     @discardableResult
     public func setProperties(_ nsset: NSSet?) -> Self {
-        self.properties = .init(nsset ?? .init())
+        self.properties = nsset ?? .init()
         return self
     }
     
