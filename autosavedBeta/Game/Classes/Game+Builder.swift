@@ -14,7 +14,6 @@ public class GameBuilder: IdentifiableProtocol {
     public var owned: Bool = true
     public var image: Data? = nil
     public var properties: [PropertyBuilder] = .init()
-//    public var properties: NSSet = .init()
     
     public init() { }
     
@@ -55,15 +54,7 @@ extension GameBuilder {
         self.image = i
         return self
     }
-    
-//    @discardableResult
-//    public func setProperties(_ nsset: NSSet?) -> Self {
-//        if let set: NSSet = nsset {
-//            self.properties = .init(array: [set.builders, set.properties.toBuilders].compacted)
-//        }
-//        return self
-//    }
-    
+
     @discardableResult
     public func setProperties(_ builders: [PropertyBuilder]) -> Self {
         self.properties = builders

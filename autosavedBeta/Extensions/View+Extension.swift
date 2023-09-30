@@ -11,25 +11,6 @@ import SwiftUI
 public extension View {
     
     @ViewBuilder
-    func FormView(_ a: String, _ str: String?) -> some View {
-        HStack(alignment: .center) {
-            Text(a)
-            Spacer()
-            Text(str.toString)
-        }
-    }
-    
-    @ViewBuilder
-    func FormView(_ a: String, _ bool: Bool) -> some View {
-        FormView(a, bool.description)
-    }
-    
-    @ViewBuilder
-    func FormView(_ a: String, _ int: Int) -> some View {
-        FormView(a, int.description)
-    }
-    
-    @ViewBuilder
     func CheckMarkView(_ str: String, _ bool: Bool) -> some View {
         HStack(alignment: .center) {
             Text(str)

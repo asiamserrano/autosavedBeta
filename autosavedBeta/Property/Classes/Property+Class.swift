@@ -19,12 +19,7 @@ public final class Property: NSManagedObject, EntityProtocol {
         case .value: return \Self.value_string
         }
     }
-    
-    public static func filter(_ nsset: NSSet, _ t: TypeEnum) -> [Property] {
-        Self.transform(nsset).filter(t.equals)
-    }
-    
-    
+
 }
 
 extension Property {

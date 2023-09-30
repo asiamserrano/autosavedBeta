@@ -15,7 +15,7 @@ public protocol InputDictionaryProtocol {
     func removeInput(_ key: InputEnum, _ index: Int) -> Void
     
     func insertInput(_ i: InputEnum, _ s: String) -> Void
-//    func insertInput(_ i: InputEnum, _ builder: InputBuilder) -> Void
+    
 }
 
 public extension InputDictionaryProtocol {
