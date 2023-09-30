@@ -33,4 +33,8 @@ public struct PlatformBuilder: BuilderProtocol {
         }
     }
     
+    public var tuple: (PlatformEnum, FormatEnum) {
+        (self.platformEnum, self.formatEnum)
+    }
+    
 }

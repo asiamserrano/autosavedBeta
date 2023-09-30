@@ -20,7 +20,7 @@ public extension IterableProtocol {
 
     static func < (lhs:Self, rhs: Self) -> Bool { lhs.value < rhs.value }
 
-    static var all: [Self] { self.allCases.map { $0 } }
+    static var all: [Self] { self.allCases.sorted(by: { $0.index < $1.index }) }
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(self.className)
@@ -41,5 +41,7 @@ public extension IterableProtocol {
     func equals(_ str: String?) -> Bool {
         self.key == str || self.value == str
     }
+    
+    private var index: Int { Int(String(describing: Self.allCases.firstIndex(of: self)!))! }
 
 }

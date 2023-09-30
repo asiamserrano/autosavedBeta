@@ -59,7 +59,7 @@ extension Property: PropertyProtocol {
         .init(self.get(.primary))!
     }
     
-    public var builder: any BuilderProtocol {
+    public var builder: PropertyBuilder {
         switch self.typeEnum {
         case .input: return InputBuilder(self)
         case .platform: return PlatformBuilder(self)
@@ -76,7 +76,7 @@ extension Property: PropertyProtocol {
         }
     }
     
-    public func set(_ builder: any BuilderProtocol) -> Property {
+    public func set(_ builder: PropertyBuilder) -> Property {
         self.primary_string = builder.get(.primary)
         self.secondary_string = builder.get(.secondary)
         self.tertiary_string = builder.get(.tertiary)

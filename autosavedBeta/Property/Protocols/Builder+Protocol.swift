@@ -7,6 +7,8 @@
 
 import Foundation
 
+public typealias PropertyBuilder = any BuilderProtocol
+
 public protocol BuilderProtocol: PropertyProtocol {
     
     static var typeEnum: TypeEnum { get }
@@ -27,6 +29,26 @@ extension BuilderProtocol {
         hasher.combine(self.get(.tertiary))
 //        hasher.combine(self.get(.value))
     }
+    
+    public func doesEqual(_ other: PropertyBuilder) -> Bool {
+        self.hashValue == other.hashValue
+    }
+    
+    public func doesNotEqual(_ other: PropertyBuilder) -> Bool {
+        self.hashValue != other.hashValue
+    }
+    
+//    public func equals(_ i: InputEnum) -> Bool {
+//        if let input: InputBuilder = self as? InputBuilder {
+//            return input.inputEnum == i
+//        } else { return false }
+//    }
+//    
+//    public func equals(_ p: P) -> Bool {
+//        if let input: InputBuilder = self as? InputBuilder {
+//            return input.inputEnum == i
+//        } else { return false }
+//    }
     
 //    public func insertTo(_ arr: [Self]) -> [Self] {
 //        [self] + (self.existsIn(arr) ? self.removeFrom(arr) : arr)

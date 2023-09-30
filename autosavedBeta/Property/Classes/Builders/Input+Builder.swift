@@ -16,7 +16,7 @@ public struct InputBuilder: BuilderProtocol {
     
     public init(_ i: InputEnum, _ s: String) {
         self.inputEnum = i
-        self.value = s
+        self.value = s.trimmed
     }
     
     public init(_ any: any PropertyProtocol) {
@@ -33,4 +33,8 @@ public struct InputBuilder: BuilderProtocol {
         }
     }
    
+    public var tuple: (String, String) {
+        (self.value.canonicalized, self.value)
+    }
+    
 }

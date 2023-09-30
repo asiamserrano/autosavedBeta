@@ -11,6 +11,10 @@ import CoreData
 @objc(Game)
 public final class Game: NSManagedObject, EntityProtocol {
     
+    public var properties: [Property] {
+        self.properties_nsset?.map { $0 as! Property } ?? .init()
+    }
+    
 }
 
 extension Game {
@@ -58,8 +62,8 @@ extension Game : Identifiable {
         return self
     }
     
-    public func set(_ nsset: NSSet) -> Game {
-        self.properties_nsset = nsset
+    public func set(_ properties: [Property]) -> Game {
+        self.properties_nsset = .init(array: properties)
         return self
     }
     

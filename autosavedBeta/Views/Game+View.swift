@@ -7,7 +7,11 @@
 
 import SwiftUI
 
-struct GameView: View {
+struct GameView: View, Equatable {
+    
+    static func == (lhs: GameView, rhs: GameView) -> Bool {
+        lhs.uuid == rhs.uuid
+    }
 
     @Environment(\.managedObjectContext) private var viewContext
 
@@ -16,18 +20,23 @@ struct GameView: View {
     @State var release: Date = .today
     @State var image: Data? = nil
 
-    @State var nsset: NSSet = .init()
+    @StateObject var dict: PropertyDictionary = .init()
+    
+    let uuid: UUID
 
-    init() { }
+    init() {
+        self.uuid = .init()
+    }
 
     init(_ game: Game) { self.init(.init(game)) }
 
     init(_ game: GameBuilder) {
-        self.editMode = .inactive
-        self.title = game.title
-        self.release = game.release
-        self.image = game.image
-        self.nsset = game.properties
+        self.init()
+        self._editMode = .init(wrappedValue: .inactive)
+        self._title = .init(wrappedValue: game.title)
+        self._release = .init(wrappedValue: game.release)
+        self._image = .init(wrappedValue: game.image)
+        self._dict = .init(wrappedValue: .init(game))
     }
 
     private var editing: Bool { self.editMode.isEditing }
@@ -37,32 +46,30 @@ struct GameView: View {
     }
 
     private var series: String? {
-        self.nsset.filterInputs(.series).first?.value
+        self.dict.getValues(.series).first
     }
 
     var body: some View {
         Form {
-//            Section {
-//                if self.editing {
-//                    ClearableTextField($title)
-//                    DatePicker(selection: $release, displayedComponents: .date) {
-//                        Text("Release Date")
-//                    }
-//                } else {
-//                    FormView("Title", self.title)
-//                    FormView("Release", self.release.long)
-//                    if let s: String = self.series {
-//                        FormView(InputEnum.series.value, s)
-//                    }
-//                }
-//            }
+            Text("my uuid: \(self.uuid.uuidString)")
+            Section {
+                if self.editing {
+                    ClearableTextField($title)
+                    DatePicker(selection: $release, displayedComponents: .date) {
+                        Text("Release Date")
+                    }
+                } else {
+                    FormView("Title", self.title)
+                    FormView("Release", self.release.long)
+                    if let s: String = self.series {
+                        FormView(InputEnum.series.value, s)
+                    }
+                }
+            }
 
-//            ForEach(self.inputEnums, id:\.self) { InputsView($editMode, $0, self.inputs) }
-
-//            ModesView($editMode, self.modes)
-//
-//
-//            PlatformView($editMode, self.properties)
+            ForEach(self.inputEnums, id:\.self) { InputsView($0, $editMode, dict) }
+            ModesView($editMode, dict)
+            PlatformsView($editMode, dict)
 
         }
         .navigationBarBackButtonHidden(self.editing)

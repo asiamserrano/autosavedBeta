@@ -21,7 +21,7 @@ extension CompoundPredicate {
     
     public static func queryForProperty(_ builder: any PropertyProtocol) -> Self {
         let keys: [VariableEnum] = [.primary, .secondary, .tertiary ]
-        return .init(andPredicateWithSubpredicates: keys.map { .init($0, builder.get($0)!, .equal) } )
+        return .init(andPredicateWithSubpredicates: keys.map { .init($0, builder.get($0), .equal) } )
     }
     
     public static func andPredicate(_ arr: [Predicate]) -> Self {
@@ -32,8 +32,13 @@ extension CompoundPredicate {
 
 extension Predicate {
     
-    public convenience init(_ v: VariableEnum, _ str: String, _ pred: PredicateEnum) {
-        self.init(format: "\(v.rawValue) \(pred.rawValue) %@", str.trimmed)
+    public convenience init(_ v: VariableEnum, _ string: String?, _ pred: PredicateEnum) {
+        let form: String = "\(v.rawValue) \(pred.rawValue)"
+        if let str: String = string {
+            self.init(format: "\(form) %@", str.trimmed)
+        } else {
+            self.init(format: "\(form) nil")
+        }
     }
 
     public convenience init(_ i: InputEnum, _ p: PredicateEnum) {

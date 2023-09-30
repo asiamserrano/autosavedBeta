@@ -13,7 +13,8 @@ public class GameBuilder: IdentifiableProtocol {
     public var release: Date = .today
     public var owned: Bool = true
     public var image: Data? = nil
-    public var properties: NSSet = .init()
+    public var properties: [PropertyBuilder] = .init()
+//    public var properties: NSSet = .init()
     
     public init() { }
     
@@ -23,7 +24,7 @@ public class GameBuilder: IdentifiableProtocol {
         self.withRelease(game.release_date)
         self.withStatus(game.owned_boolean)
         self.withImage(game.image_data)
-        self.setProperties(game.properties_nsset)
+        self.setProperties(game.properties.map{$0.builder})
     }
  
 }
@@ -55,9 +56,17 @@ extension GameBuilder {
         return self
     }
     
+//    @discardableResult
+//    public func setProperties(_ nsset: NSSet?) -> Self {
+//        if let set: NSSet = nsset {
+//            self.properties = .init(array: [set.builders, set.properties.toBuilders].compacted)
+//        }
+//        return self
+//    }
+    
     @discardableResult
-    public func setProperties(_ nsset: NSSet?) -> Self {
-        self.properties = nsset ?? .init()
+    public func setProperties(_ builders: [PropertyBuilder]) -> Self {
+        self.properties = builders
         return self
     }
     
@@ -66,9 +75,9 @@ extension GameBuilder {
         hasher.combine(self.release)
     }
     
-//    @discardableResult
-//    public func build(_ con: Context) -> Game {
-//        .init(con, self)
-//    }
+    @discardableResult
+    public func build(_ con: Context) -> Game {
+        .init(context: con).set(self).set(self.properties.map(con.fetchProperty))
+    }
     
 }
