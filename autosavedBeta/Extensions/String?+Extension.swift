@@ -13,8 +13,8 @@ public extension String? {
         self ?? .empty
     }
     
-//    func equals(_ it: any IterableProtocol) -> Bool {
-//        self == it.key || self == it.value
-//    }
+    func equals(_ it: any IterableProtocol) -> Bool {
+        self == it.key || self == it.value
+    }
     
 }

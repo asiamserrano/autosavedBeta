@@ -7,6 +7,43 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E9297282AC7063600555CFF /* Identifiable+Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9297272AC7063600555CFF /* Identifiable+Protocol.swift */; };
+		1E92972A2AC7067900555CFF /* Iterable+Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9297292AC7067900555CFF /* Iterable+Protocol.swift */; };
+		1E9297302AC7082A00555CFF /* Property+Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E92972F2AC7082A00555CFF /* Property+Protocol.swift */; };
+		1E9297332AC7089F00555CFF /* Type+Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9297322AC7089F00555CFF /* Type+Enum.swift */; };
+		1E9297352AC708B800555CFF /* Variable+Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9297342AC708B800555CFF /* Variable+Enum.swift */; };
+		1E9297372AC7096700555CFF /* Mode+Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9297362AC7096700555CFF /* Mode+Enum.swift */; };
+		1E9297392AC7097200555CFF /* Input+Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9297382AC7097200555CFF /* Input+Enum.swift */; };
+		1E92973B2AC709AB00555CFF /* Game+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E92973A2AC709AB00555CFF /* Game+View.swift */; };
+		1E92973D2AC70A4600555CFF /* Hash+Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E92973C2AC70A4600555CFF /* Hash+Enum.swift */; };
+		1E9297412AC70AC900555CFF /* Format+Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9297402AC70AC900555CFF /* Format+Protocol.swift */; };
+		1E9297432AC70B0900555CFF /* Format+Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9297422AC70B0900555CFF /* Format+Enum.swift */; };
+		1E9297452AC70B1200555CFF /* Digital+Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9297442AC70B1200555CFF /* Digital+Enum.swift */; };
+		1E9297472AC70B1B00555CFF /* Physical+Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9297462AC70B1B00555CFF /* Physical+Enum.swift */; };
+		1E92974C2AC7490300555CFF /* Platform+Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E92974B2AC7490300555CFF /* Platform+Protocol.swift */; };
+		1E92974E2AC749E100555CFF /* Platform+Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E92974D2AC749E100555CFF /* Platform+Enum.swift */; };
+		1E9297532AC74A3600555CFF /* PC+Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E92974F2AC74A3600555CFF /* PC+Enum.swift */; };
+		1E9297542AC74A3600555CFF /* PlayStation+Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9297502AC74A3600555CFF /* PlayStation+Enum.swift */; };
+		1E9297552AC74A3600555CFF /* Nintendo+Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9297512AC74A3600555CFF /* Nintendo+Enum.swift */; };
+		1E9297562AC74A3600555CFF /* Xbox+Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9297522AC74A3600555CFF /* Xbox+Enum.swift */; };
+		1E9297592AC74CE700555CFF /* Input+Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9297582AC74CE700555CFF /* Input+Builder.swift */; };
+		1E92975B2AC74CEF00555CFF /* Platform+Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E92975A2AC74CEF00555CFF /* Platform+Builder.swift */; };
+		1E92975D2AC74CF500555CFF /* Mode+Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E92975C2AC74CF500555CFF /* Mode+Builder.swift */; };
+		1E92975F2AC74CFF00555CFF /* Builder+Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E92975E2AC74CFF00555CFF /* Builder+Protocol.swift */; };
+		1E9297622AC751F000555CFF /* Input+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9297612AC751F000555CFF /* Input+Dictionary.swift */; };
+		1E9297642AC751F800555CFF /* Mode+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9297632AC751F800555CFF /* Mode+Dictionary.swift */; };
+		1E9297662AC7520200555CFF /* Platform+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9297652AC7520200555CFF /* Platform+Dictionary.swift */; };
+		1E9297682AC7525800555CFF /* Dictionary+Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9297672AC7525800555CFF /* Dictionary+Protocol.swift */; };
+		1E92976A2AC77A7E00555CFF /* String+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9297692AC77A7E00555CFF /* String+Dictionary.swift */; };
+		1E92976E2AC7807E00555CFF /* Predicate+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E92976D2AC7807E00555CFF /* Predicate+Extension.swift */; };
+		1E9297702AC780AD00555CFF /* SortDesc+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E92976F2AC780AD00555CFF /* SortDesc+Extension.swift */; };
+		1E9297742AC7870A00555CFF /* Property+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9297732AC7870A00555CFF /* Property+Dictionary.swift */; };
+		1E9297782AC7985E00555CFF /* Game+Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9297772AC7985E00555CFF /* Game+Builder.swift */; };
+		1E92977D2AC7BDFA00555CFF /* Entity+Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E92977C2AC7BDFA00555CFF /* Entity+Enum.swift */; };
+		1E9297812AC7BED300555CFF /* Entity+Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9297802AC7BED300555CFF /* Entity+Protocol.swift */; };
+		1E9297832AC7CDA900555CFF /* Main+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9297822AC7CDA900555CFF /* Main+View.swift */; };
+		1E9297852AC7CE8F00555CFF /* State+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9297842AC7CE8F00555CFF /* State+Extension.swift */; };
+		1E9297872AC7D14200555CFF /* Inputs+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9297862AC7D14200555CFF /* Inputs+View.swift */; };
 		6200A33A2AC6915B00206FFA /* Property+Class.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6200A3392AC6915A00206FFA /* Property+Class.swift */; };
 		6200A33C2AC6916400206FFA /* Game+Class.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6200A33B2AC6916400206FFA /* Game+Class.swift */; };
 		6200A3472AC694BE00206FFA /* Context+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6200A3462AC694BE00206FFA /* Context+Extension.swift */; };
@@ -26,6 +63,43 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1E9297272AC7063600555CFF /* Identifiable+Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Identifiable+Protocol.swift"; sourceTree = "<group>"; };
+		1E9297292AC7067900555CFF /* Iterable+Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Iterable+Protocol.swift"; sourceTree = "<group>"; };
+		1E92972F2AC7082A00555CFF /* Property+Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Property+Protocol.swift"; sourceTree = "<group>"; };
+		1E9297322AC7089F00555CFF /* Type+Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Type+Enum.swift"; sourceTree = "<group>"; };
+		1E9297342AC708B800555CFF /* Variable+Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Variable+Enum.swift"; sourceTree = "<group>"; };
+		1E9297362AC7096700555CFF /* Mode+Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Mode+Enum.swift"; sourceTree = "<group>"; };
+		1E9297382AC7097200555CFF /* Input+Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Input+Enum.swift"; sourceTree = "<group>"; };
+		1E92973A2AC709AB00555CFF /* Game+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Game+View.swift"; sourceTree = "<group>"; };
+		1E92973C2AC70A4600555CFF /* Hash+Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Hash+Enum.swift"; sourceTree = "<group>"; };
+		1E9297402AC70AC900555CFF /* Format+Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Format+Protocol.swift"; sourceTree = "<group>"; };
+		1E9297422AC70B0900555CFF /* Format+Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Format+Enum.swift"; sourceTree = "<group>"; };
+		1E9297442AC70B1200555CFF /* Digital+Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Digital+Enum.swift"; sourceTree = "<group>"; };
+		1E9297462AC70B1B00555CFF /* Physical+Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Physical+Enum.swift"; sourceTree = "<group>"; };
+		1E92974B2AC7490300555CFF /* Platform+Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Platform+Protocol.swift"; sourceTree = "<group>"; };
+		1E92974D2AC749E100555CFF /* Platform+Enum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Platform+Enum.swift"; sourceTree = "<group>"; };
+		1E92974F2AC74A3600555CFF /* PC+Enum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PC+Enum.swift"; sourceTree = "<group>"; };
+		1E9297502AC74A3600555CFF /* PlayStation+Enum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PlayStation+Enum.swift"; sourceTree = "<group>"; };
+		1E9297512AC74A3600555CFF /* Nintendo+Enum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Nintendo+Enum.swift"; sourceTree = "<group>"; };
+		1E9297522AC74A3600555CFF /* Xbox+Enum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Xbox+Enum.swift"; sourceTree = "<group>"; };
+		1E9297582AC74CE700555CFF /* Input+Builder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Input+Builder.swift"; sourceTree = "<group>"; };
+		1E92975A2AC74CEF00555CFF /* Platform+Builder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Platform+Builder.swift"; sourceTree = "<group>"; };
+		1E92975C2AC74CF500555CFF /* Mode+Builder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Mode+Builder.swift"; sourceTree = "<group>"; };
+		1E92975E2AC74CFF00555CFF /* Builder+Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Builder+Protocol.swift"; sourceTree = "<group>"; };
+		1E9297612AC751F000555CFF /* Input+Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Input+Dictionary.swift"; sourceTree = "<group>"; };
+		1E9297632AC751F800555CFF /* Mode+Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Mode+Dictionary.swift"; sourceTree = "<group>"; };
+		1E9297652AC7520200555CFF /* Platform+Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Platform+Dictionary.swift"; sourceTree = "<group>"; };
+		1E9297672AC7525800555CFF /* Dictionary+Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Protocol.swift"; sourceTree = "<group>"; };
+		1E9297692AC77A7E00555CFF /* String+Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Dictionary.swift"; sourceTree = "<group>"; };
+		1E92976D2AC7807E00555CFF /* Predicate+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Predicate+Extension.swift"; sourceTree = "<group>"; };
+		1E92976F2AC780AD00555CFF /* SortDesc+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SortDesc+Extension.swift"; sourceTree = "<group>"; };
+		1E9297732AC7870A00555CFF /* Property+Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Property+Dictionary.swift"; sourceTree = "<group>"; };
+		1E9297772AC7985E00555CFF /* Game+Builder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Game+Builder.swift"; sourceTree = "<group>"; };
+		1E92977C2AC7BDFA00555CFF /* Entity+Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entity+Enum.swift"; sourceTree = "<group>"; };
+		1E9297802AC7BED300555CFF /* Entity+Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entity+Protocol.swift"; sourceTree = "<group>"; };
+		1E9297822AC7CDA900555CFF /* Main+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Main+View.swift"; sourceTree = "<group>"; };
+		1E9297842AC7CE8F00555CFF /* State+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "State+Extension.swift"; sourceTree = "<group>"; };
+		1E9297862AC7D14200555CFF /* Inputs+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Inputs+View.swift"; sourceTree = "<group>"; };
 		6200A3392AC6915A00206FFA /* Property+Class.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Property+Class.swift"; sourceTree = "<group>"; };
 		6200A33B2AC6916400206FFA /* Game+Class.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Game+Class.swift"; sourceTree = "<group>"; };
 		6200A3462AC694BE00206FFA /* Context+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Context+Extension.swift"; sourceTree = "<group>"; };
@@ -56,10 +130,126 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6200A3372AC6914100206FFA /* Game */ = {
+		1E9297262AC7053600555CFF /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				1E9297272AC7063600555CFF /* Identifiable+Protocol.swift */,
+				1E9297292AC7067900555CFF /* Iterable+Protocol.swift */,
+				1E9297802AC7BED300555CFF /* Entity+Protocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		1E92972B2AC707B900555CFF /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				6200A3392AC6915A00206FFA /* Property+Class.swift */,
+				1E9297602AC751D700555CFF /* Dictionaries */,
+				1E9297572AC74CDE00555CFF /* Builders */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		1E92972E2AC707FC00555CFF /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				1E92972F2AC7082A00555CFF /* Property+Protocol.swift */,
+				1E92975E2AC74CFF00555CFF /* Builder+Protocol.swift */,
+				1E9297402AC70AC900555CFF /* Format+Protocol.swift */,
+				1E92974B2AC7490300555CFF /* Platform+Protocol.swift */,
+				1E9297672AC7525800555CFF /* Dictionary+Protocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		1E9297312AC7089600555CFF /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				1E92973F2AC70A8300555CFF /* Platforms */,
+				1E92973E2AC70A7E00555CFF /* Formats */,
+				1E9297322AC7089F00555CFF /* Type+Enum.swift */,
+				1E9297342AC708B800555CFF /* Variable+Enum.swift */,
+				1E9297362AC7096700555CFF /* Mode+Enum.swift */,
+				1E9297382AC7097200555CFF /* Input+Enum.swift */,
+				1E92973C2AC70A4600555CFF /* Hash+Enum.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		1E92973E2AC70A7E00555CFF /* Formats */ = {
+			isa = PBXGroup;
+			children = (
+				1E9297422AC70B0900555CFF /* Format+Enum.swift */,
+				1E9297442AC70B1200555CFF /* Digital+Enum.swift */,
+				1E9297462AC70B1B00555CFF /* Physical+Enum.swift */,
+			);
+			path = Formats;
+			sourceTree = "<group>";
+		};
+		1E92973F2AC70A8300555CFF /* Platforms */ = {
+			isa = PBXGroup;
+			children = (
+				1E92974D2AC749E100555CFF /* Platform+Enum.swift */,
+				1E9297512AC74A3600555CFF /* Nintendo+Enum.swift */,
+				1E92974F2AC74A3600555CFF /* PC+Enum.swift */,
+				1E9297502AC74A3600555CFF /* PlayStation+Enum.swift */,
+				1E9297522AC74A3600555CFF /* Xbox+Enum.swift */,
+			);
+			path = Platforms;
+			sourceTree = "<group>";
+		};
+		1E9297482AC7482E00555CFF /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				1E92976D2AC7807E00555CFF /* Predicate+Extension.swift */,
+				1E92976F2AC780AD00555CFF /* SortDesc+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		1E9297572AC74CDE00555CFF /* Builders */ = {
+			isa = PBXGroup;
+			children = (
+				1E9297582AC74CE700555CFF /* Input+Builder.swift */,
+				1E92975A2AC74CEF00555CFF /* Platform+Builder.swift */,
+				1E92975C2AC74CF500555CFF /* Mode+Builder.swift */,
+			);
+			path = Builders;
+			sourceTree = "<group>";
+		};
+		1E9297602AC751D700555CFF /* Dictionaries */ = {
+			isa = PBXGroup;
+			children = (
+				1E9297732AC7870A00555CFF /* Property+Dictionary.swift */,
+				1E9297612AC751F000555CFF /* Input+Dictionary.swift */,
+				1E9297632AC751F800555CFF /* Mode+Dictionary.swift */,
+				1E9297652AC7520200555CFF /* Platform+Dictionary.swift */,
+				1E9297692AC77A7E00555CFF /* String+Dictionary.swift */,
+			);
+			path = Dictionaries;
+			sourceTree = "<group>";
+		};
+		1E9297762AC7985200555CFF /* Classes */ = {
 			isa = PBXGroup;
 			children = (
 				6200A33B2AC6916400206FFA /* Game+Class.swift */,
+				1E9297772AC7985E00555CFF /* Game+Builder.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		1E92977B2AC7BDEF00555CFF /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				1E92977C2AC7BDFA00555CFF /* Entity+Enum.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		6200A3372AC6914100206FFA /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				1E9297762AC7985200555CFF /* Classes */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -67,7 +257,10 @@
 		6200A3382AC6914A00206FFA /* Property */ = {
 			isa = PBXGroup;
 			children = (
-				6200A3392AC6915A00206FFA /* Property+Class.swift */,
+				1E92972B2AC707B900555CFF /* Classes */,
+				1E9297312AC7089600555CFF /* Enums */,
+				1E92972E2AC707FC00555CFF /* Protocols */,
+				1E9297482AC7482E00555CFF /* Extensions */,
 			);
 			path = Property;
 			sourceTree = "<group>";
@@ -81,6 +274,7 @@
 				6200A34E2AC6957800206FFA /* String+Extension.swift */,
 				6200A3572AC6961C00206FFA /* String?+Extension.swift */,
 				6200A3532AC695B300206FFA /* View+Extension.swift */,
+				1E9297842AC7CE8F00555CFF /* State+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -115,7 +309,9 @@
 				6200A3372AC6914100206FFA /* Game */,
 				6200A3382AC6914A00206FFA /* Property */,
 				622EFDAB2AC68DE700FCB052 /* autosavedBetaApp.swift */,
+				1E92977B2AC7BDEF00555CFF /* Enums */,
 				6200A3452AC6949100206FFA /* Extensions */,
+				1E9297262AC7053600555CFF /* Protocols */,
 				6200A3502AC6958E00206FFA /* Modifiers */,
 				622EFDBF2AC6906A00FCB052 /* CoreData */,
 				622EFDBE2AC6906100FCB052 /* Views */,
@@ -138,6 +334,9 @@
 			children = (
 				622EFDAD2AC68DE700FCB052 /* ContentView.swift */,
 				6200A3552AC695CF00206FFA /* Icon+View.swift */,
+				1E92973A2AC709AB00555CFF /* Game+View.swift */,
+				1E9297822AC7CDA900555CFF /* Main+View.swift */,
+				1E9297862AC7D14200555CFF /* Inputs+View.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -221,20 +420,57 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E9297372AC7096700555CFF /* Mode+Enum.swift in Sources */,
+				1E9297282AC7063600555CFF /* Identifiable+Protocol.swift in Sources */,
 				622EFDB52AC68DEA00FCB052 /* Persistence.swift in Sources */,
+				1E9297552AC74A3600555CFF /* Nintendo+Enum.swift in Sources */,
+				1E92975B2AC74CEF00555CFF /* Platform+Builder.swift in Sources */,
+				1E9297872AC7D14200555CFF /* Inputs+View.swift in Sources */,
+				1E9297832AC7CDA900555CFF /* Main+View.swift in Sources */,
+				1E9297662AC7520200555CFF /* Platform+Dictionary.swift in Sources */,
+				1E9297472AC70B1B00555CFF /* Physical+Enum.swift in Sources */,
 				6200A33A2AC6915B00206FFA /* Property+Class.swift in Sources */,
 				6200A34D2AC6956400206FFA /* Image+Extension.swift in Sources */,
+				1E9297742AC7870A00555CFF /* Property+Dictionary.swift in Sources */,
+				1E9297592AC74CE700555CFF /* Input+Builder.swift in Sources */,
+				1E92974E2AC749E100555CFF /* Platform+Enum.swift in Sources */,
+				1E9297532AC74A3600555CFF /* PC+Enum.swift in Sources */,
+				1E9297542AC74A3600555CFF /* PlayStation+Enum.swift in Sources */,
+				1E92973D2AC70A4600555CFF /* Hash+Enum.swift in Sources */,
+				1E92973B2AC709AB00555CFF /* Game+View.swift in Sources */,
 				6200A3522AC6959E00206FFA /* Hide+Modifier.swift in Sources */,
 				6200A33C2AC6916400206FFA /* Game+Class.swift in Sources */,
 				622EFDAE2AC68DE700FCB052 /* ContentView.swift in Sources */,
+				1E9297782AC7985E00555CFF /* Game+Builder.swift in Sources */,
+				1E9297642AC751F800555CFF /* Mode+Dictionary.swift in Sources */,
+				1E9297302AC7082A00555CFF /* Property+Protocol.swift in Sources */,
+				1E9297852AC7CE8F00555CFF /* State+Extension.swift in Sources */,
+				1E92975D2AC74CF500555CFF /* Mode+Builder.swift in Sources */,
+				1E92972A2AC7067900555CFF /* Iterable+Protocol.swift in Sources */,
+				1E9297412AC70AC900555CFF /* Format+Protocol.swift in Sources */,
 				6200A3582AC6961C00206FFA /* String?+Extension.swift in Sources */,
+				1E9297332AC7089F00555CFF /* Type+Enum.swift in Sources */,
+				1E9297352AC708B800555CFF /* Variable+Enum.swift in Sources */,
+				1E9297622AC751F000555CFF /* Input+Dictionary.swift in Sources */,
 				622EFDB82AC68DEA00FCB052 /* autosavedBeta.xcdatamodeld in Sources */,
+				1E9297452AC70B1200555CFF /* Digital+Enum.swift in Sources */,
 				6200A3492AC694D800206FFA /* Date+Extension.swift in Sources */,
+				1E92974C2AC7490300555CFF /* Platform+Protocol.swift in Sources */,
+				1E9297812AC7BED300555CFF /* Entity+Protocol.swift in Sources */,
 				6200A3472AC694BE00206FFA /* Context+Extension.swift in Sources */,
 				6200A3562AC695CF00206FFA /* Icon+View.swift in Sources */,
 				6200A34F2AC6957800206FFA /* String+Extension.swift in Sources */,
+				1E92976A2AC77A7E00555CFF /* String+Dictionary.swift in Sources */,
 				6200A3542AC695B300206FFA /* View+Extension.swift in Sources */,
 				622EFDAC2AC68DE700FCB052 /* autosavedBetaApp.swift in Sources */,
+				1E9297392AC7097200555CFF /* Input+Enum.swift in Sources */,
+				1E92975F2AC74CFF00555CFF /* Builder+Protocol.swift in Sources */,
+				1E9297432AC70B0900555CFF /* Format+Enum.swift in Sources */,
+				1E9297562AC74A3600555CFF /* Xbox+Enum.swift in Sources */,
+				1E92976E2AC7807E00555CFF /* Predicate+Extension.swift in Sources */,
+				1E9297682AC7525800555CFF /* Dictionary+Protocol.swift in Sources */,
+				1E9297702AC780AD00555CFF /* SortDesc+Extension.swift in Sources */,
+				1E92977D2AC7BDFA00555CFF /* Entity+Enum.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
