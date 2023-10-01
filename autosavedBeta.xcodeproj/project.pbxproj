@@ -118,10 +118,6 @@
 		1E9297AE2AC8C11D00555CFF /* InputDictionary+Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InputDictionary+Protocol.swift"; sourceTree = "<group>"; };
 		1E9297B02AC8C12D00555CFF /* ModeDictionary+Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ModeDictionary+Protocol.swift"; sourceTree = "<group>"; };
 		1E9297B22AC8D93600555CFF /* Form+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Form+View.swift"; sourceTree = "<group>"; };
-		1E9297B52AC90CCB00555CFF /* ResourceReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceReader.swift; sourceTree = "<group>"; };
-		1E9297B72AC90CCC00555CFF /* genre.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = genre.txt; sourceTree = "<group>"; };
-		1E9297B82AC90CCC00555CFF /* series.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = series.txt; sourceTree = "<group>"; };
-		1E9297B92AC90CCC00555CFF /* image.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = image.txt; sourceTree = "<group>"; };
 		6200A3392AC6915A00206FFA /* Property+Class.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Property+Class.swift"; sourceTree = "<group>"; };
 		6200A33B2AC6916400206FFA /* Game+Class.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Game+Class.swift"; sourceTree = "<group>"; };
 		6200A3462AC694BE00206FFA /* Context+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Context+Extension.swift"; sourceTree = "<group>"; };
@@ -279,29 +275,9 @@
 			name = Files;
 			sourceTree = "<group>";
 		};
-		1E9297B42AC90CCB00555CFF /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				1E9297B52AC90CCB00555CFF /* ResourceReader.swift */,
-				1E9297B62AC90CCC00555CFF /* Files */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
-		1E9297B62AC90CCC00555CFF /* Files */ = {
-			isa = PBXGroup;
-			children = (
-				1E9297B82AC90CCC00555CFF /* series.txt */,
-				1E9297B92AC90CCC00555CFF /* image.txt */,
-				1E9297B72AC90CCC00555CFF /* genre.txt */,
-			);
-			path = Files;
-			sourceTree = "<group>";
-		};
 		6200A3372AC6914100206FFA /* Game */ = {
 			isa = PBXGroup;
 			children = (
-				1E9297B42AC90CCB00555CFF /* Resources */,
 				1E9297762AC7985200555CFF /* Classes */,
 			);
 			path = Game;
