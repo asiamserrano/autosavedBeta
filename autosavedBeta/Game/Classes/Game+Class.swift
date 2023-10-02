@@ -7,14 +7,33 @@
 
 import Foundation
 import CoreData
+import SwiftUI
+
+public typealias GameVariable = Game.VariableEnum
 
 @objc(Game)
-public final class Game: NSManagedObject, EntityProtocol {
+public final class Game: NSManagedObject {
     
-    public var properties: [Property] {
-        self.properties_nsset?.map { $0 as! Property } ?? .init()
+    public enum VariableEnum: String {
+        case raw = "raw_title_string"
+        case title = "title_string"
+        case release = "release_date"
+        case owned = "owned_boolean"
+        case properties = "properties_nsset"
+        case identity = "identity_uuid"
     }
     
+    public func update(_ con: Context, _ builder: GameBuilder) -> Game {
+        self.identity_uuid = builder.uuid
+        self.raw_title_string = builder.title.canonicalized
+        self.title_string = builder.title.trimmed
+        self.release_date = builder.release
+        self.owned_boolean = builder.owned
+        self.image_data = builder.image
+        self.properties_nsset = con.createNSSet(self, builder)
+        return self
+    }
+
 }
 
 extension Game {
@@ -23,13 +42,13 @@ extension Game {
         return NSFetchRequest<Game>(entityName: "Game")
     }
 
-    @NSManaged public private (set) var identity_uuid: UUID?
-    @NSManaged public private (set) var raw_title_string: String?
-    @NSManaged public private (set) var title_string: String?
-    @NSManaged public private (set) var release_date: Date?
-    @NSManaged public private (set) var owned_boolean: Bool
-    @NSManaged public private (set) var image_data: Data?
-    @NSManaged public private (set) var properties_nsset: NSSet?
+    @NSManaged private var identity_uuid: UUID?
+    @NSManaged private var raw_title_string: String?
+    @NSManaged private var title_string: String?
+    @NSManaged private var release_date: Date?
+    @NSManaged private var owned_boolean: Bool
+    @NSManaged private var image_data: Data?
+    @NSManaged private var properties_nsset: NSSet?
 
 }
 
@@ -50,21 +69,68 @@ extension Game {
 
 }
 
+extension Game: EntityProtocol {
+    
+    public struct MyFormView: View {
+        
+        let game: Game
+        
+        init(_ g: Game) { self.game = g }
+        
+        public var body: some View {
+            NavigationLink(destination: {
+                GameView(self.game)
+            }, label: {
+                HStack {
+                    Text(self.game.title)
+                }
+            })
+        }
+        
+    }
+    
+    public var InListView: any View {
+        MyFormView(self)
+    }
+    
+}
+
 extension Game : Identifiable {
     
-    public func set(_ builder: GameBuilder) -> Game {
-        self.identity_uuid = .init()
-        self.raw_title_string = builder.title.canonicalized
-        self.title_string = builder.title.trimmed
-        self.release_date = builder.release
-        self.owned_boolean = builder.owned
-        self.image_data = builder.image
-        return self
+    public static var entityEnum: EntityEnum { .game }
+
+    public var uuid: UUID {
+        if let u: UUID = self.identity_uuid {
+            return u
+        } else {
+            let new: UUID = .init()
+            self.identity_uuid = new
+            return new
+        }
     }
     
-    public func set(_ properties: [Property]) -> Game {
-        self.properties_nsset = .init(array: properties)
-        return self
+    public var alertString: String {
+        "\(self.title) (\(self.release.year))"
     }
+    
+    public var title: String {
+        self.title_string ?? .empty
+    }
+    
+    public var release: Date {
+        self.release_date ?? .today
+    }
+    
+    public var builders: [PropertyBuilder] {
+        self.properties.map { $0.builder }
+    }
+
+    public var properties: [Property] {
+        self.properties_nsset?.map { $0 as! Property } ?? .init()
+    }
+    
+    public var status: Bool { self.owned_boolean }
+    public var image: Data? { self.image_data }
+    public var uuidString: String { self.uuid.uuidString }
     
 }

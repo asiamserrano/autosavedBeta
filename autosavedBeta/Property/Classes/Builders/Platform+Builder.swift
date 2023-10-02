@@ -11,6 +11,10 @@ public struct PlatformBuilder: BuilderProtocol {
     
     public static var typeEnum: TypeEnum { .platform }
 
+    public static var random: Self {
+        .init(.random, .random)
+    }
+    
     var platformEnum: PlatformEnum
     var formatEnum: FormatEnum
     
@@ -24,7 +28,7 @@ public struct PlatformBuilder: BuilderProtocol {
         self.formatEnum = .init(any.get(.tertiary))!
     }
         
-    public func get(_ v: VariableEnum) -> String? {
+    public func get(_ v: PropertyVariable) -> String? {
         switch v {
         case .primary: return self.typeEnum.key
         case .secondary: return self.platformEnum.key
@@ -35,6 +39,10 @@ public struct PlatformBuilder: BuilderProtocol {
     
     public var tuple: (PlatformEnum, FormatEnum) {
         (self.platformEnum, self.formatEnum)
+    }
+    
+    public var display: String {
+        "\(self.platformEnum.value) | \(self.formatEnum.value)"
     }
     
 }

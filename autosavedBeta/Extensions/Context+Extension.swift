@@ -25,6 +25,12 @@ extension Context {
     }
     
     @discardableResult
+    public func remove(_ obj: NSManagedObject) -> Bool {
+        self.delete(obj)
+        return self.store()
+    }
+    
+    @discardableResult
     private func fetchProperties(_ p: Predicate, _ s: [SortDesc]? = nil) -> [Property] {
         let fetchRequest: NSFetchRequest<Property> = Property.fetchRequest()
         fetchRequest.predicate = p
@@ -51,6 +57,43 @@ extension Context {
         let p1: Predicate = .init(i, .equal)
         let predicate: Predicate = .build(from: p1, canon)
         return self.fetchProperties(predicate, [.init(.value)])
+    }
+    
+}
+
+extension Context {
+    
+    @discardableResult
+    private func fetchGames(_ p: CompoundPredicate, _ s: [SortDesc]? = nil) -> [Game] {
+        let fetchRequest: NSFetchRequest<Game> = Game.fetchRequest()
+        fetchRequest.predicate = p
+        fetchRequest.sortDescriptors = s
+        return (try? self.fetch(fetchRequest)) ?? .init()
+    }
+    
+    @discardableResult
+    func fetchGame(_ builder: GameBuilder) -> Game? {
+        let predicate: CompoundPredicate = .queryForGame(builder)
+        return self.fetchGames(predicate).first ?? nil
+    }
+    
+    @discardableResult
+    func createNSSet(_ game: Game, _ builder: GameBuilder) -> NSSet {
+        
+        let new: [Property] = builder.builders.map(self.fetchProperty)
+        let old: [Property] = game.properties.filter { !new.contains($0) }
+        
+        old.forEach { item in
+            if item.games.count == 1, let first: Game = item.games.first {
+                if game == first { self.remove(item) }
+            } else if item.games.isEmpty {
+                self.remove(item)
+            }
+        }
+        
+        self.store()
+        return .init(new)
+        
     }
     
 }

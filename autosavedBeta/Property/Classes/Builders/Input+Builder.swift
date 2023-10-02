@@ -10,6 +10,12 @@ import Foundation
 public struct InputBuilder: BuilderProtocol {
     
     public static var typeEnum: TypeEnum { .input }
+    
+    public static var random: Self {
+        let input: InputEnum = .random
+        let string: String = .random
+        return .init(input, "\(input.value) \(string)")
+    }
 
     var inputEnum: InputEnum
     var value: String
@@ -24,7 +30,7 @@ public struct InputBuilder: BuilderProtocol {
         self.value = any.get(.value)!
     }
     
-    public func get(_ v: VariableEnum) -> String? {
+    public func get(_ v: PropertyVariable) -> String? {
         switch v {
         case .primary: return self.typeEnum.key
         case .secondary: return self.inputEnum.key
@@ -35,6 +41,10 @@ public struct InputBuilder: BuilderProtocol {
    
     public var tuple: (String, String) {
         (self.value.canonicalized, self.value)
+    }
+    
+    public var display: String {
+        "\(self.inputEnum.value) | \(self.value)"
     }
     
 }

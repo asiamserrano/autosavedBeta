@@ -12,7 +12,7 @@ public typealias SortDesc = NSSortDescriptor
 
 extension SortDesc {
     
-    public convenience init(_ v: VariableEnum, _ asc: Bool = true) {
+    public convenience init(_ v: PropertyVariable, _ asc: Bool = true) {
         self.init(keyPath: Property.getKeyPath(v), ascending: asc)
     }
     

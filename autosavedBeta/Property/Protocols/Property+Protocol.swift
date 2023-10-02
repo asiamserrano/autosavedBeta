@@ -11,6 +11,6 @@ public protocol PropertyProtocol: IdentifiableProtocol {
     
     var typeEnum: TypeEnum { get }
     
-    func get(_ v: VariableEnum) -> String?
+    func get(_ v: PropertyVariable) -> String?
         
 }

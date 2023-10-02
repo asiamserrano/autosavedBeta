@@ -20,8 +20,15 @@ public enum PredicateEnum: String {
 extension CompoundPredicate {
     
     public static func queryForProperty(_ builder: any PropertyProtocol) -> Self {
-        let keys: [VariableEnum] = [.primary, .secondary, .tertiary ]
+        let keys: [PropertyVariable] = [.primary, .secondary, .tertiary ]
         return .init(andPredicateWithSubpredicates: keys.map { .init($0, builder.get($0), .equal) } )
+    }
+    
+    public static func queryForGame(_ builder: GameBuilder) -> Self {
+        .init(andPredicateWithSubpredicates: [
+            .init(.raw, builder.title.canonicalized, .equal),
+            .init(.release, builder.release, .equal)
+        ] )
     }
     
     public static func andPredicate(_ arr: [Predicate]) -> Self {
@@ -32,13 +39,25 @@ extension CompoundPredicate {
 
 extension Predicate {
     
-    public convenience init(_ v: VariableEnum, _ string: String?, _ pred: PredicateEnum) {
-        let form: String = "\(v.rawValue) \(pred.rawValue)"
+    public convenience init(_ v: String, _ string: String?, _ pred: PredicateEnum) {
+        let form: String = "\(v) \(pred.rawValue)"
         if let str: String = string {
             self.init(format: "\(form) %@", str.trimmed)
         } else {
             self.init(format: "\(form) nil")
         }
+    }
+    
+    public convenience init(_ v: GameVariable, _ dt: Date, _ pred: PredicateEnum) {
+        self.init(format: "\(v.rawValue) \(pred.rawValue) %@", dt as NSDate)
+    }
+    
+    public convenience init(_ v: GameVariable, _ string: String, _ pred: PredicateEnum) {
+        self.init(v.rawValue, string, pred)
+    }
+    
+    public convenience init(_ v: PropertyVariable, _ string: String?, _ pred: PredicateEnum) {
+        self.init(v.rawValue, string, pred)
     }
 
     public convenience init(_ i: InputEnum, _ p: PredicateEnum) {

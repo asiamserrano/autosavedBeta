@@ -21,6 +21,8 @@ public extension IterableProtocol {
     static func < (lhs:Self, rhs: Self) -> Bool { lhs.value < rhs.value }
 
     static var all: [Self] { self.allCases.sorted(by: { $0.index < $1.index }) }
+    
+    static var random: Self { self.all.randomElement()! }
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(self.className)

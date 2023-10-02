@@ -7,11 +7,24 @@
 
 import Foundation
 import CoreData
+import SwiftUI
+
+public typealias PropertyVariable = Property.VariableEnum
 
 @objc(Property)
-public final class Property: NSManagedObject, EntityProtocol {
+public final class Property: NSManagedObject {
+    
+    public enum VariableEnum: String {
+        
+        case primary = "primary_string"
+        case secondary = "secondary_string"
+        case tertiary = "tertiary_string"
+        case value = "value_string"
+        
+    }
+    
 
-    public static func getKeyPath(_ v: VariableEnum) -> KeyPath<Property, String?> {
+    public static func getKeyPath(_ v: PropertyVariable) -> KeyPath<Property, String?> {
         switch v {
         case .primary: return \Self.primary_string
         case .secondary: return \Self.secondary_string
@@ -48,7 +61,21 @@ extension Property {
 
 }
 
+extension Property: EntityProtocol {
+    
+    public var InListView: any View {
+        FormView(self.builder.display, self.games.count)
+    }
+    
+}
+
 extension Property: PropertyProtocol {
+    
+    public static var entityEnum: EntityEnum { .property }
+    
+    public var games: [Game] {
+        self.games_nsset?.map { $0 as! Game } ?? .init()
+    }
     
     public var typeEnum: TypeEnum {
         .init(self.get(.primary))!
@@ -62,7 +89,7 @@ extension Property: PropertyProtocol {
         }
     }
     
-    public func get(_ v: VariableEnum) -> String? {
+    public func get(_ v: PropertyVariable) -> String? {
         switch v {
         case .primary: return self.primary_string
         case .secondary: return self.secondary_string

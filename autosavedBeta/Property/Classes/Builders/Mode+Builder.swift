@@ -10,6 +10,8 @@ import Foundation
 public struct ModeBuilder: BuilderProtocol {
     
     public static var typeEnum: TypeEnum { .mode }
+    
+    public static var random: ModeBuilder { .init(.random) }
 
     var modeEnum: ModeEnum
     
@@ -21,12 +23,16 @@ public struct ModeBuilder: BuilderProtocol {
         self.modeEnum = .init(any.get(.secondary))!
     }
     
-    public func get(_ v: VariableEnum) -> String? {
+    public func get(_ v: PropertyVariable) -> String? {
         switch v {
         case .primary: return self.typeEnum.key
         case .secondary: return self.modeEnum.key
         default: return nil
         }
+    }
+    
+    public var display: String {
+        "\(self.modeEnum.value)"
     }
 
 }

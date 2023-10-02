@@ -7,31 +7,34 @@
 
 import SwiftUI
 
-struct GameView: View, Equatable {
+struct GameView: GameModifiableProtocol {
     
-    static func == (lhs: GameView, rhs: GameView) -> Bool {
-        lhs.uuid == rhs.uuid
-    }
+    @Environment(\.managedObjectContext) public var viewContext
+    @Environment(\.presentationMode) public var presentationMode
 
-    @Environment(\.managedObjectContext) private var viewContext
+    @StateObject var dict: PropertyDictionary = .init()
+    @StateObject var alertObj: CustomAlertObject = .init()
 
     @State var editMode: EditMode = .active
     @State var title: String = .init()
     @State var release: Date = .today
     @State var image: Data? = nil
-
-    @StateObject var dict: PropertyDictionary = .init()
     
-    let uuid: UUID
-
-    init() {
-        self.uuid = .init()
+    @State var close: Bool = false
+    
+    @State var old: GameBuilder? = nil
+    
+    let status: Bool
+    
+    init(_ builder: GameBuilder? = nil, _ s: Bool = true) {
+        self.status = s
+        self._old = .init(wrappedValue: builder)
     }
 
     init(_ game: Game) { self.init(.init(game)) }
 
     init(_ game: GameBuilder) {
-        self.init()
+        self.init(game, game.owned)
         self._editMode = .init(wrappedValue: .inactive)
         self._title = .init(wrappedValue: game.title)
         self._release = .init(wrappedValue: game.release)
@@ -39,19 +42,11 @@ struct GameView: View, Equatable {
         self._dict = .init(wrappedValue: .init(game))
     }
 
-    private var editing: Bool { self.editMode.isEditing }
-
-    private var inputEnums: [InputEnum] {
-        InputEnum.all.filter { $0 == .series ? self.editing : true }
-    }
-
-    private var series: String? {
-        self.dict.getValues(.series).first
-    }
-
     var body: some View {
         Form {
-            Text("my uuid: \(self.uuid.uuidString)")
+            if let b: GameBuilder = self.old {
+                FormView("properties count", b.builders.count)
+            }
             Section {
                 if self.editing {
                     ClearableTextField($title)
@@ -68,61 +63,79 @@ struct GameView: View, Equatable {
             }
 
             ForEach(self.inputEnums, id:\.self) { InputsView($0, $editMode, dict) }
-            ModesView($editMode, dict)
-            PlatformsView($editMode, dict)
+//            ModesView($editMode, dict)
+//            PlatformsView($editMode, dict)
 
         }
+        .onChange(of: self.close, perform: self.closed)
+        .alert(isPresented: self.$alertObj.show) { self.alertObj.alert }
         .navigationBarBackButtonHidden(self.editing)
         .environment(\.editMode, $editMode)
         .toolbar {
 
             ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: self.toggle, label: {
-                    Text("Cancel")
-                }).hide(!self.editing)
+                Button("Cancel", action: self.cancel).hide(!self.editing)
             }
 
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: self.toggle, label: {
-                    Text(self.editing ? "Done" : "Edit")
-                })
+                Button(self.buttonName, action: self.buttonAction)
+                    .disabled(self.isDoneDisabled)
             }
         }
 
     }
-
-
-    private func toggle() -> Void {
-        self.editMode = self.editing ? .inactive : .active
-    }
-
-//    @ViewBuilder
-//    public func MockedView(_ builder: PlatformBuilder) -> some View {
-//        VStack(alignment: .leading) {
-//            FormView("property", builder.propertyEnum.key)
-//            FormView("platform", builder.platform.child.key)
-//            FormView("medium", builder.format.child.key)
-//            FormView("format", builder.format.key)
-//
-//        }
-//    }
-//
-//    @ViewBuilder
-//    public func ModeView(_ builder: ModeBuilder) -> some View {
-//        VStack(alignment: .leading) {
-//            FormView("property", builder.propertyEnum.key)
-//            FormView("mode", builder.mode.key)
-//            FormView("tertiary", nil)
-//            FormView("value", nil)
-//        }
-//    }
-
+    
 }
 
-//struct GameView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        NavigationStack {
-//            GameView()
-//        }
-//    }
-//}
+extension GameView {
+    
+    var new: GameBuilder {
+        .init()
+        .withTitle(self.title)
+        .withRelease(self.release)
+        .withStatus(self.status)
+        .withImage(self.image)
+        .setProperties(self.dict)
+    }
+    
+    func toggleEdit() -> Void {
+        self.editMode = self.editing ? .inactive : .active
+    }
+    
+    func toggleAlert(_ str: String, _ successful: Bool) -> Void {
+        self.alertObj.toggle(str, .build(successful, self.adding))
+        self.close = successful
+    }
+    
+    func cancel() -> Void {
+        if let game: GameBuilder = self.old {
+            self.title = game.title
+            self.release = game.release
+            self.image = game.image
+            self.dict.update(game)
+            self.toggleEdit()
+        } else {
+            self.close = true
+        }
+    }
+    
+    public class CustomAlertObject: ObservableObject {
+        
+        @Published public var show: Bool = false
+        
+        private var header: String = .empty
+        private var message: String = .empty
+        
+        public var alert: Alert {
+            Alert(title: Text(self.header), message: Text(self.message))
+        }
+        
+        public func toggle(_ msg: String, _ e: AlertEnum) -> Void {
+            self.header = e.header
+            self.message = "\(msg) \(e.message)"
+            self.show.toggle()
+        }
+        
+    }
+    
+}

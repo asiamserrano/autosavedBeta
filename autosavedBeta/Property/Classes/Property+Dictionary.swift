@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class PropertyDictionary: ObservableObject {
+public class PropertyDictionary: ObservableObject, Equatable {
     
     @Published var nsset: NSSet = .init()
     
@@ -22,7 +22,15 @@ public class PropertyDictionary: ObservableObject {
     }
     
     public convenience init(_ game: GameBuilder) {
-        self.init(game.properties)
+        self.init(game.builders)
+    }
+    
+}
+
+extension PropertyDictionary {
+    
+    public func update(_ game: GameBuilder) -> Void {
+        self.nsset = .init(game.builders)
     }
     
     private func insert(_ obj: PropertyBuilder) -> Void {
@@ -37,8 +45,23 @@ public class PropertyDictionary: ObservableObject {
         self.allObjects.filter(t.equals)
     }
     
-    private var allObjects: [PropertyBuilder] {
+    public var allObjects: [PropertyBuilder] {
         self.nsset.allObjects.map { $0 as! PropertyBuilder }
+    }
+    
+    private func hash(_ ele: PropertyBuilder) -> Int {
+        var hasher: Hasher = .init()
+        hasher.combine(ele.get(.primary))
+        hasher.combine(ele.get(.secondary))
+        hasher.combine(ele.get(.tertiary))
+        hasher.combine(ele.get(.value))
+        return hasher.finalize()
+    }
+    
+    private var hashed: [Int] { self.allObjects.map(hash).sorted() }
+    
+    public static func == (lhs: PropertyDictionary, rhs: PropertyDictionary) -> Bool {
+        lhs.hashed == rhs.hashed
     }
     
 }

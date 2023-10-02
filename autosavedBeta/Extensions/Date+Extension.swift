@@ -73,10 +73,10 @@ public extension Date {
     var dashless: String {
         DateFormatter.format(self, .dashless)
     }
-//
-//    public var year: String {
-//        DateFormatter.format(self, .year)
-//    }
+
+    var year: String {
+        DateFormatter.format(self, .year)
+    }
 //
 //    public var dashes: String {
 //        DateFormatter.format(self, .dashes)

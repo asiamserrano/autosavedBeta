@@ -10,5 +10,11 @@ import Foundation
 public enum EntityEnum: IterableProtocol {
     case game, property
     
+    public var plural: String {
+        switch self {
+        case .game: return "Games"
+        case .property: return "Properties"
+        }
+    }
     
 }

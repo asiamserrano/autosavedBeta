@@ -12,13 +12,16 @@ public typealias PropertyBuilder = any BuilderProtocol
 public protocol BuilderProtocol: PropertyProtocol {
     
     static var typeEnum: TypeEnum { get }
+    static var random: Self { get }
     
     init(_ any: any PropertyProtocol)
+    
+    var display: String { get }
     
 }
 
 extension BuilderProtocol {
-    
+        
     public var typeEnum: TypeEnum {
         Self.typeEnum
     }
@@ -36,5 +39,5 @@ extension BuilderProtocol {
     public func doesNotEqual(_ other: PropertyBuilder) -> Bool {
         self.hashValue != other.hashValue
     }
-
+        
 }

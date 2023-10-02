@@ -8,13 +8,13 @@
 import SwiftUI
 
 
-struct AddPlatformView: View {
+struct AddPlatformView: CloseableProtocol {
 
     @Environment(\.presentationMode) var presentationMode
 
-    @State private var close: Bool = false
-    @State private var platform: PlatformEnum? = nil
-    @State private var formats: [FormatEnum] = .init()
+    @State var close: Bool = false
+    @State var platform: PlatformEnum? = nil
+    @State var formats: [FormatEnum] = .init()
 
     @ObservedObject var dict: PropertyDictionary
 
@@ -61,7 +61,7 @@ struct AddPlatformView: View {
                 
             }
         }
-        .onChange(of: self.close, perform: { if $0 { self.presentationMode.wrappedValue.dismiss() }})
+        .onChange(of: self.close, perform: self.closed)
         .onChange(of: self.platform, perform: { _ in self.formats = .init() })
         .toolbar {
 

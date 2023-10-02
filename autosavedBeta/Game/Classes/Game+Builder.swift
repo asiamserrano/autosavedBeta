@@ -9,27 +9,38 @@ import Foundation
 
 public class GameBuilder: IdentifiableProtocol {
     
+    public private (set) var uuid: UUID = .init()
+    public private (set) var builders: [PropertyBuilder] = .init()
+    
     public var title: String = .empty
     public var release: Date = .today
     public var owned: Bool = true
     public var image: Data? = nil
-    public var properties: [PropertyBuilder] = .init()
-    
+        
     public init() { }
     
     public convenience init(_ game: Game) {
         self.init()
-        self.withTitle(game.title_string)
-        self.withRelease(game.release_date)
-        self.withStatus(game.owned_boolean)
-        self.withImage(game.image_data)
-        self.setProperties(game.properties.map{$0.builder})
+        self.uuid = game.uuid
+        self.withTitle(game.title)
+        self.withRelease(game.release)
+        self.withStatus(game.status)
+        self.withImage(game.image)
+        self.setProperties(game.builders)
+    }
+    
+    public var dictionary: PropertyDictionary { .init(self.builders) }
+    
+    public func equals(_ other: GameBuilder) -> Bool {
+        self.title.trimmed == other.title.trimmed
+        && self.release.dashless == other.release.dashless
+        && self.image == other.image
+        && self.dictionary == other.dictionary
     }
  
 }
 
 extension GameBuilder {
-    
     
     @discardableResult
     public func withTitle(_ str: String?) -> Self {
@@ -39,7 +50,7 @@ extension GameBuilder {
     
     @discardableResult
     public func withRelease(_ dt: Date?) -> Self {
-        self.release = dt ?? .today
+        self.release = .init(dt ?? .today)
         return self
     }
     
@@ -57,8 +68,13 @@ extension GameBuilder {
 
     @discardableResult
     public func setProperties(_ builders: [PropertyBuilder]) -> Self {
-        self.properties = builders
+        self.builders = builders
         return self
+    }
+    
+    @discardableResult
+    public func setProperties(_ dict: PropertyDictionary) -> Self {
+        self.setProperties(dict.allObjects)
     }
     
     public func hash(into hasher: inout Hasher) {
@@ -66,9 +82,13 @@ extension GameBuilder {
         hasher.combine(self.release)
     }
     
+//    public func properties(_ con: Context) -> NSSet {
+//        .buildForProperties(self.builders, con)
+//    }
+    
     @discardableResult
     public func build(_ con: Context) -> Game {
-        .init(context: con).set(self).set(self.properties.map(con.fetchProperty))
+        .init(context: con).update(con, self)
     }
     
 }

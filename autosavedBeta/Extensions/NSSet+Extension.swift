@@ -9,8 +9,16 @@ import Foundation
 
 extension NSSet {
     
-    public convenience init(_ arr: [PropertyBuilder]) {
+    public convenience init(_ arr: [any PropertyProtocol]) {
         self.init(array: arr)
     }
+    
+//    public static func buildForBuilders(_ arr: [PropertyBuilder]) -> Self {
+//        .init(array: arr)
+//    }
+    
+//    public static func buildForProperties(_ arr: [Property]) -> Self {
+//        .init(array: arr)
+//    }
     
 }

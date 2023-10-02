@@ -17,11 +17,23 @@ struct FormView: View {
         self.message = message
     }
     
-    
-    init(_ header: String, _ message: Any) {
-        self.header = header
-        self.message = String(describing: message)
+    init(_ header: String, _ message: UUID) {
+        self.init(header, message.uuidString)
     }
+    
+    init(_ header: String, _ message: Int) {
+        self.init(header, message.description)
+    }
+    
+    init(_ header: String, _ message: Bool) {
+        self.init(header, message.description)
+    }
+    
+    
+//    init(_ header: String, _ message: Any) {
+//        self.header = header
+//        self.message = String(describing: message)
+//    }
     
     var body: some View {
         HStack(alignment: .center) {

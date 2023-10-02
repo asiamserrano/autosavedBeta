@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-struct AddInputView: View {
+struct AddInputView: CloseableProtocol {
     
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.presentationMode) var presentationMode
     
-    @State private var close: Bool = false
-    @State private var search: String = .init()
-    @State private var selected: String? = nil
+    @State var close: Bool = false
+    @State var search: String = .init()
+    @State var selected: String? = nil
     
     private let uuid: UUID = .init()
     
@@ -76,7 +76,7 @@ struct AddInputView: View {
         .id(self.uuid)
         .listStyle(.insetGrouped)
         .searchable(text: $search, placement: .navigationBarDrawer(displayMode: .always), prompt: self.prompt)
-        .onChange(of: self.close, perform: { if $0 { self.presentationMode.wrappedValue.dismiss() }})
+        .onChange(of: self.close, perform: self.closed)
         .disableAutocorrection(true)
         .toolbar {
             

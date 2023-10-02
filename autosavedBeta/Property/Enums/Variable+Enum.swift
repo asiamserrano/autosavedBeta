@@ -7,11 +7,3 @@
 
 import Foundation
 
-public enum VariableEnum: String {
-    
-    case primary = "primary_string"
-    case secondary = "secondary_string"
-    case tertiary = "tertiary_string"
-    case value = "value_string"
-    
-}
