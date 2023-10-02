@@ -13,7 +13,7 @@ struct GameView: GameModifiableProtocol {
     @Environment(\.presentationMode) public var presentationMode
 
     @StateObject var dict: PropertyDictionary = .init()
-    @StateObject var alertObj: CustomAlertObject = .init()
+    @StateObject var alertObj: AlertObject = .init()
 
     @State var editMode: EditMode = .active
     @State var title: String = .init()
@@ -117,25 +117,6 @@ extension GameView {
         } else {
             self.close = true
         }
-    }
-    
-    public class CustomAlertObject: ObservableObject {
-        
-        @Published public var show: Bool = false
-        
-        private var header: String = .empty
-        private var message: String = .empty
-        
-        public var alert: Alert {
-            Alert(title: Text(self.header), message: Text(self.message))
-        }
-        
-        public func toggle(_ msg: String, _ e: AlertEnum) -> Void {
-            self.header = e.header
-            self.message = "\(msg) \(e.message)"
-            self.show.toggle()
-        }
-        
     }
     
 }

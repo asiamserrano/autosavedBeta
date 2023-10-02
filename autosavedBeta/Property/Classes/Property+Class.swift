@@ -32,6 +32,10 @@ public final class Property: NSManagedObject {
         case .value: return \Self.value_string
         }
     }
+    
+    public override var string: String {
+        self.builder.display
+    }
 
 }
 
@@ -59,14 +63,6 @@ extension Property {
     @objc(removeGames_nsset:)
     @NSManaged public func removeFromGames_nsset(_ values: NSSet)
 
-}
-
-extension Property: EntityProtocol {
-    
-    public var InListView: any View {
-        FormView(self.builder.display, self.games.count)
-    }
-    
 }
 
 extension Property: PropertyProtocol {

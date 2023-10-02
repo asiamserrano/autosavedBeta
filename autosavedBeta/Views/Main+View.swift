@@ -8,9 +8,10 @@
 
 import SwiftUI
 
-struct MainView: View {
+struct MainView: StandardViewProtocol {
     
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.managedObjectContext) var viewContext
+    @EnvironmentObject var viewObject: ViewObject
     
     //    @FetchRequest(entity: Property.entity(), sortDescriptors: [])
     //    var properties: FetchedResults<Property>
@@ -18,7 +19,7 @@ struct MainView: View {
     //    @FetchRequest(entity: Game.entity(), sortDescriptors: [])
     //    var games: FetchedResults<Game>
     
-    @State private var entity: EntityEnum = .game
+//    @State private var entity: EntityEnum = .property
     @State private var uuid: UUID = .init()
     
     /*
@@ -40,46 +41,44 @@ struct MainView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                Picker("Entity", selection: $entity) {
-                    ForEach(EntityEnum.all) { Text($0.plural).tag($0) }
+                Picker("Entity", selection: $viewObject.entityEnum) {
+                    ForEach(EntityEnum.all) {
+                        Text($0.plural).tag($0)
+                    }
                 }
-                .pickerStyle(.segmented)
-                .padding()
+                .onChange(of: self.sortEnum, perform: self.setDirection)
+//                .pickerStyle(.segmented)
                 
-                switch self.entity {
-                    //                    case .game: Text("games")
-                    //                    case .property: Text("properties")
-                case .game: GameListingView { game in
-                    NavigationLink(destination: {
-                        GameView(game)
-                    }, label: {
-                        HStack {
-                            Text(game.title)
-                        }
-                    })
-                }
-                case .property: PropertyListingView { property in
-                    FormView(property.builder.display, property.games.count)
-                }
-                }
-                
-//                Form {
-//
-//
-//                }
+                EntityListView()
             }
             .id(self.uuid)
-            .onChange(of: self.entity, perform: { _ in self.uuid = .init()})
-            .navigationTitle(self.entity.plural)
+            .onChange(of: self.hashValue, perform: self.updateID)
+            .navigationTitle(self.entityEnum.plural)
             .toolbar {
+                
                 ToolbarItem {
+                    
                     NavigationLink(destination: {
                         GameView()
                     }, label: {
                         Image(systemName: "plus")
                     })
                 }
+                
+                if self.entityEnum == .game {
+                    ToolbarItemGroup(placement: .bottomBar, content: {
+                        
+                        Button("Sorted by: \(self.sortEnum.value)", action: self.nextSortEnum)
+                        
+                        Button(action: self.toggleDirection, label: {
+                            Image(systemName: "arrow.\(self.ascending ? "up" : "down")")
+                        })
+                        
+                    })
+                }
+
             }
+
         }
     }
     
@@ -228,6 +227,7 @@ struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         MainView()
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+            .environmentObject(ViewObjectKey.defaultValue)
     }
     
 }

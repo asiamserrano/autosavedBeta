@@ -77,10 +77,10 @@ public extension Date {
     var year: String {
         DateFormatter.format(self, .year)
     }
-//
-//    public var dashes: String {
-//        DateFormatter.format(self, .dashes)
-//    }
+
+    var dashes: String {
+        DateFormatter.format(self, .dashes)
+    }
 //
 //    public var timestamp: String {
 //        DateFormatter.format(self, .timestamp)

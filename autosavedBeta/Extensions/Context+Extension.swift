@@ -31,6 +31,22 @@ extension Context {
     }
     
     @discardableResult
+    public func fetchEntities(_ v: ViewObject) -> [ManObj] {
+        let fetchRequest = ManObj.fetchRequest(v.entityEnum)
+        fetchRequest.sortDescriptors = v.sortDescs
+        return (try? self.fetch(fetchRequest)) ?? .init()
+    }
+    
+//    @discardableResult
+//    public func fetchEntities(_ e: EntityEnum) -> [ManObj] {
+//        ((try? self.fetch(ManObj.fetchRequest(e))) ?? .init())
+//    }
+    
+}
+
+extension Context {
+    
+    @discardableResult
     private func fetchProperties(_ p: Predicate, _ s: [SortDesc]? = nil) -> [Property] {
         let fetchRequest: NSFetchRequest<Property> = Property.fetchRequest()
         fetchRequest.predicate = p
@@ -91,7 +107,6 @@ extension Context {
             }
         }
         
-        self.store()
         return .init(new)
         
     }

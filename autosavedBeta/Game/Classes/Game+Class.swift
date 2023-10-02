@@ -31,6 +31,27 @@ public final class Game: NSManagedObject {
         self.owned_boolean = builder.owned
         self.image_data = builder.image
         self.properties_nsset = con.createNSSet(self, builder)
+        return self.save(con)
+    }
+    
+    public static var rawKeyPath: KeyPath<Game, String?> {
+        return \Self.raw_title_string
+    }
+    
+    public static var releaseKeyPath: KeyPath<Game, Date?> {
+        return \Self.release_date
+    }
+    
+    public static var ownedKeyPath: KeyPath<Game, Bool> {
+        return \Self.owned_boolean
+    }
+
+    public override var string: String {
+        "\(self.title) (\(self.release.dashes))"
+    }
+    
+    private func save(_ con: Context) -> Game {
+        con.store()
         return self
     }
 
@@ -67,32 +88,6 @@ extension Game {
     @objc(removeProperties_nsset:)
     @NSManaged public func removeFromProperties_nsset(_ values: NSSet)
 
-}
-
-extension Game: EntityProtocol {
-    
-    public struct MyFormView: View {
-        
-        let game: Game
-        
-        init(_ g: Game) { self.game = g }
-        
-        public var body: some View {
-            NavigationLink(destination: {
-                GameView(self.game)
-            }, label: {
-                HStack {
-                    Text(self.game.title)
-                }
-            })
-        }
-        
-    }
-    
-    public var InListView: any View {
-        MyFormView(self)
-    }
-    
 }
 
 extension Game : Identifiable {
