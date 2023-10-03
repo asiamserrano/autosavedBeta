@@ -10,7 +10,9 @@ import SwiftUI
 
 struct AddPlatformView: CloseableProtocol {
 
+    @Environment(\.managedObjectContext) var viewContext
     @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var viewObject: ViewObject
 
     @State var close: Bool = false
     @State var platform: PlatformEnum? = nil

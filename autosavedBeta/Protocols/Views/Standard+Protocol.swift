@@ -12,7 +12,6 @@ import SwiftUI
 public protocol StandardViewProtocol: View {
     
     var viewObject: ViewObject { get }
-    var viewContext: Context { get }
     
 }
 
@@ -22,6 +21,7 @@ public extension StandardViewProtocol {
     var hashValue: Int { self.viewObject.hashValue }
     var entityEnum: EntityEnum { self.viewObject.entityEnum }
     var sortEnum: SortEnum { self.viewObject.sortEnum }
+//    var menuEnum: MenuEnum { self.viewObject.menuEnum }
     var ascending: Bool { self.viewObject.ascending }
     
     func nextSortEnum() -> Void {

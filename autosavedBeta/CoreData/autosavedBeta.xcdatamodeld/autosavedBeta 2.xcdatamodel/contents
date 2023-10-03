@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22F82" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Game" representedClassName="Game" syncable="YES">
+        <attribute name="add_date" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="identity_uuid" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="image_data" optional="YES" attributeType="Binary"/>
+        <attribute name="owned_boolean" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="raw_title_string" attributeType="String"/>
+        <attribute name="release_date" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="title_string" attributeType="String"/>
+        <relationship name="properties_nsset" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Property" inverseName="games_nsset" inverseEntity="Property"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="raw_title_string"/>
+                <constraint value="release_date"/>
+            </uniquenessConstraint>
+            <uniquenessConstraint>
+                <constraint value="identity_uuid"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="Property" representedClassName="Property" syncable="YES">
+        <attribute name="primary_string" attributeType="String"/>
+        <attribute name="secondary_string" attributeType="String"/>
+        <attribute name="tertiary_string" optional="YES" attributeType="String"/>
+        <attribute name="value_string" optional="YES" attributeType="String"/>
+        <relationship name="games_nsset" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Game" inverseName="properties_nsset" inverseEntity="Game"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="primary_string"/>
+                <constraint value="secondary_string"/>
+                <constraint value="tertiary_string"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+</model>

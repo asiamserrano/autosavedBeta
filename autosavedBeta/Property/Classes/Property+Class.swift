@@ -33,19 +33,19 @@ public final class Property: NSManagedObject {
         }
     }
     
-    public override var string: String {
-        self.builder.display
-    }
-    
-    public override var tuple: NSManagedObject.ObjectTuple {
-        .init(self.get(.secondary)!, {
-            switch self.typeEnum {
-            case .input: return self.get(.value)
-            case .mode: return nil
-            case .platform: return self.get(.tertiary)
-            }
-        }())
-    }
+//    public override var string: String {
+//        self.builder.display
+//    }
+//    
+//    public override var tuple: NSManagedObject.ObjectTuple {
+//        .init(self.get(.secondary)!, {
+//            switch self.typeEnum {
+//            case .input: return self.get(.value)
+//            case .mode: return nil
+//            case .platform: return self.get(.tertiary)
+//            }
+//        }())
+//    }
 
 }
 

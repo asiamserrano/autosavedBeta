@@ -38,8 +38,8 @@ public class ViewObject: ObservableObject, IdentifiableProtocol {
     @Published public var uuid: UUID = .init()
     
     @Published public var entityEnum: EntityEnum = .game
-    //    @Published var menuEnum: MenuEnum = .library
-    //    @Published var viewEnum: ViewEnum = .list
+//        @Published var menuEnum: MenuEnum = .library
+//        @Published var viewEnum: ViewEnum = .list
         @Published public var sortEnum: SortEnum = .name
     
     @Published public var ascending: Bool = true
@@ -48,9 +48,7 @@ public class ViewObject: ObservableObject, IdentifiableProtocol {
     
     //    @Published var valueEnum: PVE? = nil
     //    @Published var wishlistDevice: Device? = nil
-    
-    private var alertObject: AlertObject = .init()
-    
+        
 //    public var sortDescs: [SortDesc] {
 //        switch self.entityEnum {
 //        case .game: return [SortDesc](self.sortEnum, Binding(get: { self.ascending }, set: { self.ascending = $0 }))

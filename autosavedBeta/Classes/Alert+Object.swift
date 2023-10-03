@@ -19,10 +19,11 @@ public class AlertObject: ObservableObject {
         Alert(title: Text(self.header), message: Text(self.message))
     }
     
-    public func toggle(_ msg: String, _ e: AlertEnum) -> Void {
+    public init() { }
+    
+    public init(_ msg: String, _ e: AlertEnum) {
         self.header = e.header
         self.message = "\(msg) \(e.message)"
-        self.show.toggle()
+        self.show = true
     }
-    
 }

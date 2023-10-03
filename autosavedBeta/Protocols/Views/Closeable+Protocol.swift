@@ -8,10 +8,11 @@
 import Foundation
 import SwiftUI
 
-public protocol CloseableProtocol: View {
+public protocol CloseableProtocol: StandardViewProtocol {
     
     var presentationMode: Binding<PresentationMode> { get }
     var close: Bool { get set }
+    
 }
 
 extension CloseableProtocol {

@@ -23,11 +23,12 @@ public final class Game: NSManagedObject {
         case identity = "identity_uuid"
     }
     
-    public func update(_ con: Context, _ builder: GameBuilder) -> Game {
+    public func update(_ con: Context, _ builder: any GameBuilderProtocol) -> Game {
         self.identity_uuid = builder.uuid
         self.raw_title_string = builder.title.canonicalized
         self.title_string = builder.title.trimmed
         self.release_date = builder.release
+        self.add_date = builder.add
         self.owned_boolean = builder.owned
         self.image_data = builder.image
         self.properties_nsset = con.createNSSet(self, builder)
@@ -45,14 +46,8 @@ public final class Game: NSManagedObject {
     public static var ownedKeyPath: KeyPath<Game, Bool> {
         return \Self.owned_boolean
     }
-
-    public override var string: String {
-        "\(self.title) (\(self.release.dashes))"
-    }
     
-    public override var tuple: NSManagedObject.ObjectTuple {
-        .init(self.title, self.release.dashes)
-    }
+    
     
     private func save(_ con: Context) -> Game {
         con.store()
@@ -71,6 +66,7 @@ extension Game {
     @NSManaged private var raw_title_string: String?
     @NSManaged private var title_string: String?
     @NSManaged private var release_date: Date?
+    @NSManaged private var add_date: Date?
     @NSManaged private var owned_boolean: Bool
     @NSManaged private var image_data: Data?
     @NSManaged private var properties_nsset: NSSet?
@@ -118,6 +114,10 @@ extension Game : Identifiable {
     
     public var release: Date {
         self.release_date ?? .today
+    }
+    
+    public var add: Date {
+        self.add_date ?? .today
     }
     
     public var builders: [PropertyBuilder] {

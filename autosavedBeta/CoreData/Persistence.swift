@@ -36,28 +36,6 @@ struct PersistenceController {
     
     private static var max: Int = 100
     
-//    private static var master_properties: [PropertyBuilder] {
-//        var mp: [PropertyBuilder] = .init()
-//        for _ in 0..<max { mp.append(random(.random)) }
-//        return mp
-//    }
-//
-//    private static func master_games(_ con: Context) -> Void {
-//        for _ in 0..<max {
-//            let str: String = .random
-//            let top: Int = .random(in: 3..<12)
-//            var indexes: Set<Int> = .init()
-//            for _ in 2..<top { indexes.insert(Int.random(in: 0..<max)) }
-//            let props: [PropertyBuilder] = indexes.map { master_properties[$0] }
-//            GameBuilder.init()
-//                .withTitle("Game \(str)")
-//                .withRelease(.random)
-//                .withStatus(true)
-//                .setProperties(props)
-//                .build(con)
-//        }
-//    }
-    
     @discardableResult
     private static func grandTheftAuto(_ con: Context) -> Game {
         let builders: [PropertyBuilder] = [
@@ -75,7 +53,7 @@ struct PersistenceController {
             .withRelease(.init(2002, 10, 29))
             .withStatus(true)
             .withImage(.init(base64Encoded: ResourceReader.readString(.image)))
-            .setProperties(builders)
+            .withDictionary(builders)
             .build(con)
     }
     
@@ -85,26 +63,46 @@ struct PersistenceController {
         }
     }
     
-    static var preview: PersistenceController = {
-        let result = PersistenceController(inMemory: true)
-        let viewContext = result.container.viewContext
-        
+    static func populate(_ viewContext: Context) -> Void {
         var mp: [PropertyBuilder] = .init()
         for _ in 0..<max { mp.append(random(.random)) }
         
         for _ in 0..<max {
             let str: String = .random
-            let top: Int = .random(in: 3..<12)
-            var indexes: Set<Int> = .init()
-            for _ in 2..<top { indexes.insert(Int.random(in: 0..<max)) }
-            let props: [PropertyBuilder] = indexes.map { mp[$0] }
+            let owned: Bool = .random()
+            var props: [PropertyBuilder] {
+                if owned {
+                    let top: Int = .random(in: 3..<12)
+                    var indexes: Set<Int> = .init()
+                    for _ in 2..<top { indexes.insert(Int.random(in: 0..<max)) }
+                    return indexes.map { mp[$0] }
+                } else { return .init() }
+            }
+            
             GameBuilder.init()
                 .withTitle("Game \(str)")
                 .withRelease(.random)
-                .withStatus(true)
-                .setProperties(props)
+                .withStatus(owned)
+                .withDictionary(props)
                 .build(viewContext)
         }
+    }
+    
+    static var preview: PersistenceController = {
+        let result = PersistenceController(inMemory: true)
+        let viewContext = result.container.viewContext
+        populate(viewContext)
+        
+//        for int in 1..<3 {
+//            GameBuilder.init()
+//                .withTitle("Game\(int)")
+////                .withRelease(.today)
+////                .withStatus(true)
+////                .withDictionary(props)
+//                .build(viewContext)
+//        }
+        
+
         
 //        master_games(viewContext)
         

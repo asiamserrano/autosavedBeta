@@ -18,11 +18,11 @@ public class PropertyDictionary: ObservableObject, Equatable {
     }
     
     public convenience init(_ game: Game) {
-        self.init(GameBuilder(game))
+        self.init(game.builders)
     }
     
-    public convenience init(_ game: GameBuilder) {
-        self.init(game.builders)
+    public convenience init(_ builder: GameBuilder) {
+        self.init(builder.builders)
     }
     
 }

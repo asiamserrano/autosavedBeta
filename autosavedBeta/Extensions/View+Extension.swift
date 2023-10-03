@@ -43,4 +43,8 @@ public extension View {
         modifier(HideModifier(bool))
     }
     
+    func italicize(_ bool: Bool, _ color: Color = .black) -> some View {
+        modifier(ItalicizedModifier(bool, color))
+    }
+    
 }

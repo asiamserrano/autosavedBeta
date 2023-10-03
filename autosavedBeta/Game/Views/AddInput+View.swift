@@ -11,6 +11,7 @@ struct AddInputView: CloseableProtocol {
     
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var viewObject: ViewObject
     
     @State var close: Bool = false
     @State var search: String = .init()

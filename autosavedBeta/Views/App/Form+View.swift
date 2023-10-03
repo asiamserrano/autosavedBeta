@@ -29,6 +29,10 @@ struct FormView: View {
         self.init(header, message.description)
     }
     
+    init(_ header: String, _ message: Date) {
+        self.init(header, message.long)
+    }
+    
     
 //    init(_ header: String, _ message: Any) {
 //        self.header = header

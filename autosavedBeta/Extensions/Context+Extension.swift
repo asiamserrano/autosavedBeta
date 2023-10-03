@@ -94,7 +94,7 @@ extension Context {
     }
     
     @discardableResult
-    func createNSSet(_ game: Game, _ builder: GameBuilder) -> NSSet {
+    func createNSSet(_ game: Game, _ builder: any GameBuilderProtocol) -> NSSet {
         
         let new: [Property] = builder.builders.map(self.fetchProperty)
         let old: [Property] = game.properties.filter { !new.contains($0) }
