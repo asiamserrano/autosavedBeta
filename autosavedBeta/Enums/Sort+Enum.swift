@@ -9,11 +9,17 @@ import Foundation
 
 
 public enum SortEnum: IterableProtocol {
-    case name, release
     
-    public var display: String {
+    public static func filterForStatus(_ status: Bool) -> [Self] {
+        Self.all.filter { $0 == .add ? !status : true }
+    }
+    
+    case name, release, add
+    
+    public var value: String {
         switch self {
         case .release: return "Release Date"
+        case .add: return "Add Date"
         case .name: return self.defaultValue
         }
     }

@@ -24,14 +24,24 @@ extension [SortDesc] {
     private static func nameSortDesc(_ b: Bool) -> Self {
         [
             .init(keyPath: Game.rawKeyPath, ascending: b),
-            .init(keyPath: Game.releaseKeyPath, ascending: true)
+            .init(keyPath: Game.releaseKeyPath, ascending: true),
+            .init(keyPath: Game.addKeyPath, ascending: true)
         ]
     }
     
     private static func releaseSortDesc(_ b: Bool) -> Self {
         [
             .init(keyPath: Game.releaseKeyPath, ascending: b),
-            .init(keyPath: Game.rawKeyPath, ascending: true)
+            .init(keyPath: Game.rawKeyPath, ascending: true),
+            .init(keyPath: Game.addKeyPath, ascending: true)
+        ]
+    }
+    
+    private static func addSortDesc(_ b: Bool) -> Self {
+        [
+            .init(keyPath: Game.addKeyPath, ascending: b),
+            .init(keyPath: Game.rawKeyPath, ascending: true),
+            .init(keyPath: Game.releaseKeyPath, ascending: true)
         ]
     }
     
@@ -39,6 +49,7 @@ extension [SortDesc] {
         switch s {
         case .name: return .nameSortDesc(b)
         case .release: return .releaseSortDesc(b)
+        case .add: return .addSortDesc(b)
         }
     }
     

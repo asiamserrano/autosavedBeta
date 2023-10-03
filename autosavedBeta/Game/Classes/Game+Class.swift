@@ -43,6 +43,10 @@ public final class Game: NSManagedObject {
         return \Self.release_date
     }
     
+    public static var addKeyPath: KeyPath<Game, Date?> {
+        return \Self.add_date
+    }
+    
     public static var ownedKeyPath: KeyPath<Game, Bool> {
         return \Self.owned_boolean
     }

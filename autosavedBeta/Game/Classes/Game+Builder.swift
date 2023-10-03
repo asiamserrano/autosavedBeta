@@ -71,4 +71,10 @@ extension GameBuilder {
         return self
     }
     
+    @discardableResult
+    public func withRandomAddDate() -> Self {
+        self.add = .random
+        return self
+    }
+    
 }

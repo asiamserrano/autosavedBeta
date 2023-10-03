@@ -38,7 +38,7 @@ public class ViewObject: ObservableObject, IdentifiableProtocol {
     @Published public var uuid: UUID = .init()
     
     @Published public var entityEnum: EntityEnum = .game
-//        @Published var menuEnum: MenuEnum = .library
+        @Published var menuEnum: MenuEnum = .library
 //        @Published var viewEnum: ViewEnum = .list
         @Published public var sortEnum: SortEnum = .name
     
@@ -67,6 +67,7 @@ public class ViewObject: ObservableObject, IdentifiableProtocol {
     
     public func hash(into hasher: inout Hasher) {
         hasher.combine(self.entityEnum)
+        hasher.combine(self.menuEnum)
 //        hasher.combine(self.viewEnum)
         hasher.combine(self.sortEnum)
 //        hasher.combine(self.status)
@@ -77,12 +78,23 @@ public class ViewObject: ObservableObject, IdentifiableProtocol {
         self.sortEnum = self.sortEnum.iterateToNext()
     }
     
-    public func toggleDirection(_ new: Bool? = nil) -> Void {
-        self.ascending = new ?? !self.ascending
+    public func toggleDirection(_ s: SortEnum) -> Void {
+        self.sortEnum == s ? self.ascending.toggle() : self.reset(s)
+//        if self.sortEnum == s {
+//            self.ascending.toggle()
+//        } else {
+//            self.sortEnum = s
+//            self.ascending = true
+//        }
     }
     
     public func updateID() -> Void {
         self.uuid = .init()
+    }
+    
+    public func reset(_ s: SortEnum = .name) -> Void {
+        self.sortEnum = s
+        self.ascending = true
     }
     
 }
