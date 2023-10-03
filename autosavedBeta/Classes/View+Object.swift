@@ -51,12 +51,12 @@ public class ViewObject: ObservableObject, IdentifiableProtocol {
     
     private var alertObject: AlertObject = .init()
     
-    public var sortDescs: [SortDesc] {
-        switch self.entityEnum {
-        case .game: return [SortDesc](self.sortEnum, Binding(get: { self.ascending }, set: { self.ascending = $0 }))
-        case .property: return [.init(.primary), .init(.secondary), .init(.tertiary)]
-        }
-    }
+//    public var sortDescs: [SortDesc] {
+//        switch self.entityEnum {
+//        case .game: return [SortDesc](self.sortEnum, Binding(get: { self.ascending }, set: { self.ascending = $0 }))
+//        case .property: return [.init(.primary), .init(.secondary), .init(.tertiary)]
+//        }
+//    }
     
 //    public var id: String {
 //        let enums: [any EnumProtocol] = [deviceEnum, viewEnum, sortEnum, statusEnum]

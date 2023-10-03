@@ -21,25 +21,46 @@ extension SortDesc {
 
 extension [SortDesc] {
     
-    private static func nameSortDesc(_ b: Binding<Bool>) -> Self {
+    public static func nameSortDesc(_ b: Bool) -> Self {
         [
-            .init(keyPath: Game.rawKeyPath, ascending: b.wrappedValue),
+            .init(keyPath: Game.rawKeyPath, ascending: b),
             .init(keyPath: Game.releaseKeyPath, ascending: true)
         ]
     }
     
-    private static func releaseSortDesc(_ b: Binding<Bool>) -> Self {
+    public static func releaseSortDesc(_ b: Bool) -> Self {
         [
-            .init(keyPath: Game.releaseKeyPath, ascending: b.wrappedValue),
+            .init(keyPath: Game.releaseKeyPath, ascending: b),
             .init(keyPath: Game.rawKeyPath, ascending: true)
         ]
     }
     
-    public init(_ v: SortEnum, _ b: Binding<Bool>) {
-        switch v {
-        case .name: self.init(Self.nameSortDesc(b))
-        case .release: self.init(Self.releaseSortDesc(b))
-        }
-    }
+//    public init(_ v: SortEnum, _ b: Bool) {
+//        switch v {
+//        case .name: self.init(Self.nameSortDesc(b))
+//        case .release: self.init(Self.releaseSortDesc(b))
+//        }
+//    }
+    
+//    private static func nameSortDesc(_ b: Binding<Bool>) -> Self {
+//        [
+//            .init(keyPath: Game.rawKeyPath, ascending: b.wrappedValue),
+//            .init(keyPath: Game.releaseKeyPath, ascending: true)
+//        ]
+//    }
+//
+//    private static func releaseSortDesc(_ b: Binding<Bool>) -> Self {
+//        [
+//            .init(keyPath: Game.releaseKeyPath, ascending: b.wrappedValue),
+//            .init(keyPath: Game.rawKeyPath, ascending: true)
+//        ]
+//    }
+//
+//    public init(_ v: SortEnum, _ b: Binding<Bool>) {
+//        switch v {
+//        case .name: self.init(Self.nameSortDesc(b))
+//        case .release: self.init(Self.releaseSortDesc(b))
+//        }
+//    }
     
 }

@@ -30,13 +30,13 @@ extension Context {
         return self.store()
     }
     
-    @discardableResult
-    public func fetchEntities(_ v: ViewObject) -> [ManObj] {
-        let fetchRequest = ManObj.fetchRequest(v.entityEnum)
-        fetchRequest.sortDescriptors = v.sortDescs
-        return (try? self.fetch(fetchRequest)) ?? .init()
-    }
-    
+//    @discardableResult
+//    public func fetchEntities(_ v: ViewObject) -> [ManObj] {
+//        let fetchRequest = ManObj.fetchRequest(v.entityEnum)
+//        fetchRequest.sortDescriptors = v.sortDescs
+//        return (try? self.fetch(fetchRequest)) ?? .init()
+//    }
+//    
 //    @discardableResult
 //    public func fetchEntities(_ e: EntityEnum) -> [ManObj] {
 //        ((try? self.fetch(ManObj.fetchRequest(e))) ?? .init())
@@ -80,7 +80,7 @@ extension Context {
 extension Context {
     
     @discardableResult
-    private func fetchGames(_ p: CompoundPredicate, _ s: [SortDesc]? = nil) -> [Game] {
+    public func fetchGames(_ p: NSPredicate?, _ s: [SortDesc]? = nil) -> [Game] {
         let fetchRequest: NSFetchRequest<Game> = Game.fetchRequest()
         fetchRequest.predicate = p
         fetchRequest.sortDescriptors = s

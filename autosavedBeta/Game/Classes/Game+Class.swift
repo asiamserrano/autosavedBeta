@@ -50,6 +50,10 @@ public final class Game: NSManagedObject {
         "\(self.title) (\(self.release.dashes))"
     }
     
+    public override var tuple: NSManagedObject.ObjectTuple {
+        .init(self.title, self.release.dashes)
+    }
+    
     private func save(_ con: Context) -> Game {
         con.store()
         return self

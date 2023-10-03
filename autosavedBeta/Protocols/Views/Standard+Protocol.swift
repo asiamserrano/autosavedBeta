@@ -18,6 +18,7 @@ public protocol StandardViewProtocol: View {
 
 public extension StandardViewProtocol {
     
+    var uuid: UUID { self.viewObject.uuid }
     var hashValue: Int { self.viewObject.hashValue }
     var entityEnum: EntityEnum { self.viewObject.entityEnum }
     var sortEnum: SortEnum { self.viewObject.sortEnum }

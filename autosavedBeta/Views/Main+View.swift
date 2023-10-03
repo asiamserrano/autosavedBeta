@@ -7,6 +7,7 @@
 
 
 import SwiftUI
+import CoreData
 
 struct MainView: StandardViewProtocol {
     
@@ -20,7 +21,7 @@ struct MainView: StandardViewProtocol {
     //    var games: FetchedResults<Game>
     
 //    @State private var entity: EntityEnum = .property
-    @State private var uuid: UUID = .init()
+//    @State private var uuid: UUID = .init()
     
     /*
      1. add search to game view
@@ -38,20 +39,42 @@ struct MainView: StandardViewProtocol {
      
      */
     
+    @State private var selected: Game? = nil
+    
     var body: some View {
         NavigationStack {
             VStack {
-                Picker("Entity", selection: $viewObject.entityEnum) {
-                    ForEach(EntityEnum.all) {
-                        Text($0.plural).tag($0)
-                    }
-                }
-                .onChange(of: self.sortEnum, perform: self.setDirection)
-//                .pickerStyle(.segmented)
+                Text("uuid: \(self.uuid.uuidString)")
+//                Picker("Entity", selection: $viewObject.entityEnum) {
+//                    ForEach(EntityEnum.all) {
+//                        Text($0.plural).tag($0)
+//                    }
+//                }
+              
                 
-                EntityListView()
+                FilteredGamesListView() { game in
+                    Text(game.title)
+//                    NavigationLink(destination: {
+//                        GameView(game)
+//                    }, label: {
+//                        Text(game.title)
+//                    })//.id(game)
+                }
+                
+                
+//                .pickerStyle(.segmented)
+//                switch self.entityEnum {
+//                case .game: ViewForGames
+//                case .property: ViewForProperties
+//                }
+//                EntityListView() { FormView($0.tuple.header, $0.tuple.message) }
+//                EntityListView() { ViewForT($0) }
             }
-            .id(self.uuid)
+//            .background {
+//                NavigationLink(<#T##SwiftUI.LocalizedStringKey#>, destination: <#T##Destination#>, isActive: <#T##SwiftUI.Binding<Bool>#>)
+//            }
+//            .id(self.uuid)
+            .onChange(of: self.sortEnum, perform: self.setDirection)
             .onChange(of: self.hashValue, perform: self.updateID)
             .navigationTitle(self.entityEnum.plural)
             .toolbar {
@@ -168,22 +191,7 @@ struct MainView: StandardViewProtocol {
     //        }
     //    }
     
-    //    @ViewBuilder
-    //    public func GameView(_ game: Game) -> some View {
-    //        NavigationLink(destination: {
-    //            GameView(game)
-    //        }, label: {
-    //            Text(game.title_string ?? .new)
-    //        })
-    ////        VStack(alignment: .leading) {
-    ////            FormView("raw", game.raw_title_string)
-    ////            FormView("title", game.title_string)
-    ////            FormView("release", game.release_date?.long)
-    ////            FormView("owned?", game.owned_boolean.description)
-    ////            FormView("image?", (game.image_data != nil).description)
-    ////            FormView("properties", game.properties_set?.count.description)
-    ////        }
-    //    }
+  
     
     //    @ViewBuilder
     //    public func GameView(_ game: Game) -> some View {
