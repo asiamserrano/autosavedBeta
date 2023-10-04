@@ -33,8 +33,10 @@ public extension IterableProtocol {
     private var index: Int { Int(String(describing: Self.allCases.firstIndex(of: self)!))! }
     
     var defaultValue: String { self.key.capitalized }
+    var defaultDisplay: String { "\(self.defaultValue)s" }
     var key: String { String(describing: self) }
     var value: String { self.defaultValue }
+    var display: String { self.defaultDisplay }
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(self.className)

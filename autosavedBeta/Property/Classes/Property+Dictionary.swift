@@ -70,8 +70,7 @@ extension PropertyDictionary: PlatformDictionaryProtocol {
     
     public var platforms: [PlatformEnum: [FormatEnum]] {
         let builders: [PlatformBuilder] = self.filter(.platform).map { $0 as! PlatformBuilder }
-        return .init(uniqueKeysWithValues: builders.map { builder in
-            let plat: PlatformEnum = builder.platformEnum
+        return .init(uniqueKeysWithValues: Set(builders.map { $0.platformEnum }).map { plat in
             let formats: [FormatEnum] = builders.filter { $0.tuple.0 == plat }.map { $0.tuple.1 }
             return (plat, formats)
         })

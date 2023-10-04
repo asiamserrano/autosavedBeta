@@ -24,17 +24,4 @@ public enum SortEnum: IterableProtocol {
         }
     }
     
-//
-//    public func sortCases(_ asc: Bool) -> [NSSortDescriptor] {
-//        var cases: [Self] {
-//            switch self {
-//            case .name: return [.name, .release, .add]
-//            case .release: return [.release, .name, .add]
-//            case .add: return [.add, .name, .release]
-//            }
-//        }
-//
-//        return cases.map { NSSortDescriptor(key: "device_\($0.id)", ascending: asc) }
-//    }
-    
 }

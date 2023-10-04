@@ -24,12 +24,20 @@ public extension InputDictionaryProtocol {
         self.inputs.keys.sorted()
     }
     
+    var isInputsEmpty: Bool {
+        self.inputKeys.isEmpty
+    }
+    
     func getKeys(_ i: InputEnum) -> [String] {
         self.inputs[i]?.keys.sorted() ?? .init()
     }
     
     func getValues(_ i: InputEnum) -> [String] {
         self.inputs[i]?.values.sorted() ?? .init()
+    }
+    
+    func isInputEmpty(_ i: InputEnum) -> Bool {
+        self.inputs[i]?.isEmpty ?? true
     }
     
 }

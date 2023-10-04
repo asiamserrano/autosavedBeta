@@ -16,9 +16,13 @@ public protocol ModeDictionaryProtocol {
     
 }
 
-extension ModeDictionaryProtocol {
+public extension ModeDictionaryProtocol {
     
-    public func contains(_ m: ModeEnum) -> Bool {
+    var isModesEmpty: Bool {
+        self.modes.isEmpty
+    }
+    
+    func contains(_ m: ModeEnum) -> Bool {
         self.modes.contains(m)
     }
     

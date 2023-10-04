@@ -74,7 +74,7 @@ struct MainView: StandardViewProtocol {
                 return NSPredicate(format: "\(key) == %@", bool as NSNumber)
             } else { return nil }
         }
-        FilteredListView(sort, predicate) { (game: Game) in
+        FilteredListView(.game, sort, predicate) { (game: Game) in
             NavigationLink(destination: {
                 GameView(game)
             }, label: {

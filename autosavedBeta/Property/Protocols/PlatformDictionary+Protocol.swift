@@ -17,18 +17,24 @@ public protocol PlatformDictionaryProtocol {
     func insertPlatform(_ p: PlatformEnum, _ f: [FormatEnum]) -> Void
 }
 
-extension PlatformDictionaryProtocol {
+public extension PlatformDictionaryProtocol {
 
-    public var platformKeys: [PlatformEnum] {
+    var platformKeys: [PlatformEnum] {
         self.platforms.keys.sorted()
     }
     
-    public func getFormats(_ p: PlatformEnum) -> [FormatEnum] {
+    var isPlatformsEmpty: Bool { self.platformKeys.isEmpty }
+    
+    func getFormats(_ p: PlatformEnum) -> [FormatEnum] {
         self.platforms[p]?.sorted() ?? .init()
     }
     
-    public func contains(_ p: PlatformEnum) -> Bool {
+    func contains(_ p: PlatformEnum) -> Bool {
         self.platformKeys.contains(p)
     }
     
+//    func isPlatformEmpty(_ p: PlatformEnum) -> Bool {
+//        self.getFormats(p).isEmpty
+//    }
+//    
 }

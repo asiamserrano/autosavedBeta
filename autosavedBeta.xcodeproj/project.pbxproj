@@ -60,7 +60,6 @@
 		6200A3542AC695B300206FFA /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6200A3532AC695B300206FFA /* View+Extension.swift */; };
 		6200A3562AC695CF00206FFA /* Icon+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6200A3552AC695CF00206FFA /* Icon+View.swift */; };
 		6200A3582AC6961C00206FFA /* String?+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6200A3572AC6961C00206FFA /* String?+Extension.swift */; };
-		6200A35A2AC917BB00206FFA /* PropertyDictionary+Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6200A3592AC917BB00206FFA /* PropertyDictionary+Protocol.swift */; };
 		622EFDAC2AC68DE700FCB052 /* autosavedBetaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622EFDAB2AC68DE700FCB052 /* autosavedBetaApp.swift */; };
 		622EFDAE2AC68DE700FCB052 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622EFDAD2AC68DE700FCB052 /* ContentView.swift */; };
 		622EFDB02AC68DEA00FCB052 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 622EFDAF2AC68DEA00FCB052 /* Assets.xcassets */; };
@@ -69,6 +68,8 @@
 		622EFDB82AC68DEA00FCB052 /* autosavedBeta.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 622EFDB62AC68DEA00FCB052 /* autosavedBeta.xcdatamodeld */; };
 		624778292ACCBC3E0034469F /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624778282ACCBC3E0034469F /* StatisticsView.swift */; };
 		6247782B2ACCBC4A0034469F /* PropertiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6247782A2ACCBC4A0034469F /* PropertiesView.swift */; };
+		6247782D2ACD23550034469F /* FilteredGamesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6247782C2ACD23550034469F /* FilteredGamesView.swift */; };
+		6247782F2ACD264E0034469F /* FilteredPropertiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6247782E2ACD264E0034469F /* FilteredPropertiesView.swift */; };
 		6252D99E2AC9EA6F004F1C69 /* Identifiable+Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6252D99B2AC9EA6E004F1C69 /* Identifiable+Protocol.swift */; };
 		6252D99F2AC9EA6F004F1C69 /* Iterable+Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6252D99C2AC9EA6F004F1C69 /* Iterable+Protocol.swift */; };
 		6252D9A62AC9F932004F1C69 /* Closeable+Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6252D9A52AC9F932004F1C69 /* Closeable+Protocol.swift */; };
@@ -145,7 +146,6 @@
 		6200A3532AC695B300206FFA /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		6200A3552AC695CF00206FFA /* Icon+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Icon+View.swift"; sourceTree = "<group>"; };
 		6200A3572AC6961C00206FFA /* String?+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String?+Extension.swift"; sourceTree = "<group>"; };
-		6200A3592AC917BB00206FFA /* PropertyDictionary+Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PropertyDictionary+Protocol.swift"; sourceTree = "<group>"; };
 		622EFDA82AC68DE700FCB052 /* autosavedBeta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = autosavedBeta.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		622EFDAB2AC68DE700FCB052 /* autosavedBetaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = autosavedBetaApp.swift; sourceTree = "<group>"; };
 		622EFDAD2AC68DE700FCB052 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -155,6 +155,8 @@
 		622EFDB72AC68DEA00FCB052 /* autosavedBeta.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = autosavedBeta.xcdatamodel; sourceTree = "<group>"; };
 		624778282ACCBC3E0034469F /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
 		6247782A2ACCBC4A0034469F /* PropertiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertiesView.swift; sourceTree = "<group>"; };
+		6247782C2ACD23550034469F /* FilteredGamesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredGamesView.swift; sourceTree = "<group>"; };
+		6247782E2ACD264E0034469F /* FilteredPropertiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredPropertiesView.swift; sourceTree = "<group>"; };
 		6252D99B2AC9EA6E004F1C69 /* Identifiable+Protocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Identifiable+Protocol.swift"; sourceTree = "<group>"; };
 		6252D99C2AC9EA6F004F1C69 /* Iterable+Protocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Iterable+Protocol.swift"; sourceTree = "<group>"; };
 		6252D9A52AC9F932004F1C69 /* Closeable+Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Closeable+Protocol.swift"; sourceTree = "<group>"; };
@@ -209,7 +211,6 @@
 				1E9297672AC7525800555CFF /* PlatformDictionary+Protocol.swift */,
 				1E9297AE2AC8C11D00555CFF /* InputDictionary+Protocol.swift */,
 				1E9297B02AC8C12D00555CFF /* ModeDictionary+Protocol.swift */,
-				6200A3592AC917BB00206FFA /* PropertyDictionary+Protocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -402,6 +403,8 @@
 				6252D9AD2ACB00AB004F1C69 /* App */,
 				624778282ACCBC3E0034469F /* StatisticsView.swift */,
 				6247782A2ACCBC4A0034469F /* PropertiesView.swift */,
+				6247782C2ACD23550034469F /* FilteredGamesView.swift */,
+				6247782E2ACD264E0034469F /* FilteredPropertiesView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -561,6 +564,7 @@
 				1E92975B2AC74CEF00555CFF /* Platform+Builder.swift in Sources */,
 				62DC5F3C2ACC5A8200498122 /* GameBuilder+Protocol.swift in Sources */,
 				1E92978F2AC8702B00555CFF /* AddInput+View.swift in Sources */,
+				6247782F2ACD264E0034469F /* FilteredPropertiesView.swift in Sources */,
 				1E9297872AC7D14200555CFF /* Inputs+View.swift in Sources */,
 				1E9297832AC7CDA900555CFF /* MainViewOLD.swift in Sources */,
 				1E9297472AC70B1B00555CFF /* Physical+Enum.swift in Sources */,
@@ -589,6 +593,7 @@
 				62DC5F3F2ACC608400498122 /* GameView+Protocol.swift in Sources */,
 				6252D9C52ACB0D7B004F1C69 /* ManObj+Extension.swift in Sources */,
 				1E9297B12AC8C12D00555CFF /* ModeDictionary+Protocol.swift in Sources */,
+				6247782D2ACD23550034469F /* FilteredGamesView.swift in Sources */,
 				6200A3582AC6961C00206FFA /* String?+Extension.swift in Sources */,
 				1E9297332AC7089F00555CFF /* Type+Enum.swift in Sources */,
 				1E9297352AC708B800555CFF /* Variable+Enum.swift in Sources */,
@@ -603,7 +608,6 @@
 				6200A3472AC694BE00206FFA /* Context+Extension.swift in Sources */,
 				1E9297AF2AC8C11D00555CFF /* InputDictionary+Protocol.swift in Sources */,
 				6252D9BF2ACB0266004F1C69 /* View+Enum.swift in Sources */,
-				6200A35A2AC917BB00206FFA /* PropertyDictionary+Protocol.swift in Sources */,
 				1E9297C02AC90D9E00555CFF /* ResourceReader.swift in Sources */,
 				1E9297A72AC88C0400555CFF /* Platforms+View.swift in Sources */,
 				6252D9B22ACB014F004F1C69 /* Standard+Protocol.swift in Sources */,

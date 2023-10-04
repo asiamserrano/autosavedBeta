@@ -65,7 +65,12 @@ struct PersistenceController {
     
     static func populate(_ viewContext: Context) -> Void {
         var mp: [PropertyBuilder] = .init()
-        for _ in 0..<max { mp.append(random(.random)) }
+        while mp.count < max {
+            let new: PropertyBuilder = random(.random)
+            if !mp.contains(where: { $0.hashValue == new.hashValue }) {
+                mp.append(new)
+            }
+        }
         
         for _ in 0..<max {
             let str: String = .random

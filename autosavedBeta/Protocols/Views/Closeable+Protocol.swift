@@ -11,16 +11,18 @@ import SwiftUI
 public protocol CloseableProtocol: StandardViewProtocol {
     
     var presentationMode: Binding<PresentationMode> { get }
-    var close: Bool { get set }
+    var dismiss: Bool { get set }
     
 }
 
 extension CloseableProtocol {
     
-    public func closed(_ bool: Bool) -> Void {
-        if bool {
-            self.presentationMode.wrappedValue.dismiss()
-        }
+    public func close(_ bool: Bool) -> Void {
+        if bool { self.close() }
+    }
+    
+    public func close() -> Void {
+        self.presentationMode.wrappedValue.dismiss()
     }
     
 }

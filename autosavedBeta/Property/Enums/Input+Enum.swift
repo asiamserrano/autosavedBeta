@@ -19,4 +19,11 @@ public enum InputEnum: IterableProtocol {
         self == .series
     }
     
+    public var display: String {
+        switch self {
+        case .series: return self.value
+        default: return self.defaultDisplay
+        }
+    }
+    
 }

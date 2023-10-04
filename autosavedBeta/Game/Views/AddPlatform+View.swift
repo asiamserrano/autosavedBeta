@@ -14,7 +14,7 @@ struct AddPlatformView: CloseableProtocol {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var viewObject: ViewObject
 
-    @State var close: Bool = false
+    @State var dismiss: Bool = false
     @State var platform: PlatformEnum? = nil
     @State var formats: [FormatEnum] = .init()
 
@@ -39,9 +39,7 @@ struct AddPlatformView: CloseableProtocol {
                 
                 Section("\(FormatEnum.DefaultEnum.physical.value) Format") {
                     let containsPhysical: Bool = self.formats.contains(plat.physical)
-                    Toggle(plat.physical.value, isOn: Binding(get: {
-                        containsPhysical
-                    }, set: {
+                    Toggle(plat.physical.value, isOn: Binding(get: { containsPhysical}, set: {
                         if $0 { if !containsPhysical { self.formats.append(plat.physical)}  }
                         else { self.formats.removeAll(where: { $0 == plat.physical }) }
                     }))
@@ -63,7 +61,7 @@ struct AddPlatformView: CloseableProtocol {
                 
             }
         }
-        .onChange(of: self.close, perform: self.closed)
+        .onChange(of: self.dismiss, perform: self.close)
         .onChange(of: self.platform, perform: { _ in self.formats = .init() })
         .toolbar {
 
@@ -72,7 +70,6 @@ struct AddPlatformView: CloseableProtocol {
                     self.platform = nil
                     self.done()
                 })
-
             }
 
             ToolbarItem(placement:.navigationBarTrailing) { Button("Done", action: self.done).disabled(self.formats.isEmpty) }
@@ -83,17 +80,18 @@ struct AddPlatformView: CloseableProtocol {
         if let plat: PlatformEnum = self.platform {
             self.dict.insertPlatform(plat, self.formats)
         }
-        self.close = true
+        self.dismiss = true
     }
 
 }
 
 extension AddPlatformView {
 
-    struct SelectPlatformView: View {
-
+    struct SelectPlatformView: CloseableProtocol {
+        
         @Environment(\.presentationMode) var presentationMode
-
+        @EnvironmentObject var viewObject: ViewObject
+        @State var dismiss: Bool = false
         @Binding var platform: PlatformEnum?
 
         init (_ b: Binding<PlatformEnum?>) {
@@ -101,7 +99,6 @@ extension AddPlatformView {
         }
 
         var body: some View {
-
             List {
                 ForEach(PlatformEnum.FamilyEnum.all) { type in
                     Picker(type.value, selection: $platform) {
@@ -110,9 +107,9 @@ extension AddPlatformView {
                         }
                     }.pickerStyle(.inline)
                 }
-            }.onChange(of: self.platform, perform: { _ in
-                self.presentationMode.wrappedValue.dismiss()
-            })
+            }
+            .onChange(of: self.platform, perform: { _ in self.dismiss.toggle() })
+            .onChange(of: self.dismiss, perform: self.close)
 
         }
 

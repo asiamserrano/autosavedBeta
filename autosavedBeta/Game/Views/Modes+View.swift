@@ -30,7 +30,7 @@ struct ModesView: View {
     }
 
     var body: some View {
-        Section(TypeEnum.mode.value) {
+        Section(TypeEnum.mode.display) {
             ForEach(ModeEnum.all) { mode in
                 let val: String = mode.value
                 if self.editing { Toggle(val, isOn: createBinding(mode)) }

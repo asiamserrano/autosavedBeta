@@ -14,7 +14,7 @@ struct GameView: GameViewProtocol {
     @EnvironmentObject var viewObject: ViewObject
     
     @State var editMode: EditMode = .active
-    @State var close: Bool = false
+    @State var dismiss: Bool = false
     
     @StateObject var dictionary: PropertyDictionary = .init()
     
@@ -44,7 +44,6 @@ struct GameView: GameViewProtocol {
     
     var body: some View {
         Form {
-            FormView("show alert?", self.alertObject.show)
             Section {
                 if self.isEditing {
                     ClearableTextField($title)
@@ -59,13 +58,11 @@ struct GameView: GameViewProtocol {
                     }
                 }
             }
-            
-            ForEach(self.inputEnums, id:\.self) { InputsView($0, $editMode, self.dictionary) }
-            //            ModesView($editMode, dict)
-            //            PlatformsView($editMode, dict)
-            
+            ShowInputsView
+            ShowModesView
+            ShowPlatformsView
         }
-        .onChange(of: self.close, perform: self.closed)
+        .onChange(of: self.dismiss, perform: self.close)
         .alert(isPresented: self.$alertObject.show) { self.alertObject.alert }
         .navigationBarBackButtonHidden(self.isEditing)
         .environment(\.editMode, $editMode)
@@ -82,6 +79,35 @@ struct GameView: GameViewProtocol {
         }
     }
     
+    private func shouldShow(_ isEmpty: Bool) -> Bool {
+        !isEmpty || self.isEditing
+    }
+    
+    @ViewBuilder
+    public var ShowInputsView: some View {
+        if shouldShow(self.dictionary.isInputsEmpty) {
+            ForEach(self.inputEnums, id:\.self) {
+                if shouldShow(self.dictionary.isInputEmpty($0)) {
+                    InputsView($0, $editMode, self.dictionary)
+                }
+            }
+        }
+    }
+    
+    @ViewBuilder
+    public var ShowModesView: some View {
+        if shouldShow(self.dictionary.isModesEmpty) {
+            ModesView($editMode, self.dictionary)
+        }
+    }
+    
+    @ViewBuilder
+    public var ShowPlatformsView: some View {
+        if shouldShow(self.dictionary.isPlatformsEmpty) {
+            PlatformsView($editMode, self.dictionary)
+        }
+    }
+    
 }
 
 extension GameView {
@@ -92,7 +118,7 @@ extension GameView {
     
     func toggle(_ str: String, _ successful: Bool) -> Void {
         self.alertObject = .init(str, .build(successful, self.isNew))
-        self.close = successful
+        self.dismiss = successful
     }
     
     func cancel() -> Void {
@@ -103,7 +129,7 @@ extension GameView {
             self.dictionary.update(game)
             self.toggle()
         } else {
-            self.closed(true)
+            self.close()
         }
     }
     

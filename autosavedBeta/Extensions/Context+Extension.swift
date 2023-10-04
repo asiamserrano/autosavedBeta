@@ -30,18 +30,6 @@ extension Context {
         return self.store()
     }
     
-//    @discardableResult
-//    public func fetchEntities(_ v: ViewObject) -> [ManObj] {
-//        let fetchRequest = ManObj.fetchRequest(v.entityEnum)
-//        fetchRequest.sortDescriptors = v.sortDescs
-//        return (try? self.fetch(fetchRequest)) ?? .init()
-//    }
-//    
-//    @discardableResult
-//    public func fetchEntities(_ e: EntityEnum) -> [ManObj] {
-//        ((try? self.fetch(ManObj.fetchRequest(e))) ?? .init())
-//    }
-    
 }
 
 extension Context {
@@ -100,7 +88,7 @@ extension Context {
         let old: [Property] = game.properties.filter { !new.contains($0) }
         
         old.forEach { item in
-            if item.games.count == 1, let first: Game = item.games.first {
+            if item.games.count == 1, let first: Game = item.games.first, game == first {
                 if game == first { self.remove(item) }
             } else if item.games.isEmpty {
                 self.remove(item)

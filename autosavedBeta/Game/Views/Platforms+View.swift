@@ -35,7 +35,7 @@ struct PlatformsView: View {
                     .navigationBarBackButtonHidden(true)
             }, label: {
                 HStack(alignment: .center, spacing: 5) {
-                    Text(TypeEnum.platform.value).font(.footnote)
+                    Text(TypeEnum.platform.display).font(.footnote)
                     IconView("chevron.right", .blue, 10).hide(bool)
                 }
             })
@@ -96,9 +96,3 @@ extension PlatformsView {
     }
 
 }
-
-//struct PlatformView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PlatformView()
-//    }
-//}

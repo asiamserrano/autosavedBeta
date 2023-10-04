@@ -13,7 +13,7 @@ struct AddInputView: CloseableProtocol {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var viewObject: ViewObject
     
-    @State var close: Bool = false
+    @State var dismiss: Bool = false
     @State var search: String = .init()
     @State var selected: String? = nil
     
@@ -77,7 +77,7 @@ struct AddInputView: CloseableProtocol {
         .id(self.uuid)
         .listStyle(.insetGrouped)
         .searchable(text: $search, placement: .navigationBarDrawer(displayMode: .always), prompt: self.prompt)
-        .onChange(of: self.close, perform: self.closed)
+        .onChange(of: self.dismiss, perform: self.close)
         .disableAutocorrection(true)
         .toolbar {
             
@@ -99,12 +99,8 @@ struct AddInputView: CloseableProtocol {
         let i: InputEnum = self.inputEnum
         if let string: String = self.selected {
             self.dict.insertInput(i, string)
-//            if i.isSingular { self.dict.insertInput(i, .init(i, string)) }
-//            else { self.dict.insertInput(i, string)}
-//            if i.isSingular { self.set.removeAll(i) }
-//            self.set.insert(InputBuilder(i, string))
         }
-        self.close = true
+        self.dismiss = true
     }
     
 }

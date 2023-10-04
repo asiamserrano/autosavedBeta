@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-public protocol GameViewProtocol: CloseableProtocol {
+public protocol GameViewProtocol: CloseableProtocol, StandardViewProtocol {
 
     var viewContext: Context { get }
     var dictionary: PropertyDictionary { get }

@@ -11,9 +11,7 @@ struct GameListView: View {
     
     @ObservedObject var game: Game
     
-    init(_ g: Game) {
-        self.game = g
-    }
+    init(_ g: Game) { self.game = g }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
@@ -23,7 +21,6 @@ struct GameListView: View {
                 Spacer()
                 if !game.status { DateView(game.add, true) }
             }
-
         }
     }
     
