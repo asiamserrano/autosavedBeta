@@ -13,17 +13,44 @@ struct MainView: StandardViewProtocol {
     @Environment(\.managedObjectContext) var viewContext
     @EnvironmentObject var viewObject: ViewObject
     
+//    @FetchRequest(
+//        sortDescriptors: [],
+//        animation: .default)
+//    private var items: FetchedResults<Property>
+    
+//    @ViewBuilder
+//    public func BuilderView(_ builder: Property) -> some View {
+//        VStack(alignment: .leading) {
+//            FormView("primary", builder.get(.primary))
+//            FormView("secondary", builder.get(.secondary))
+//            FormView("tertiary", builder.get(.tertiary))
+//            FormView("value", builder.get(.value))
+//        }
+//    }
+    
+    @ViewBuilder
+    public func BuilderView(_ any: any IterableProtocol) -> some View {
+        VStack(alignment: .leading) {
+            FormView("key", any.key)
+            FormView("value", any.value)
+//            FormView("display", any.display)
+        }
+    }
+    
+    
     var body: some View {
         NavigationStack {
-            VStack {
-                switch self.menuEnum {
-                case .statistics: StatisticsView()
-                case .properties: PropertiesView()
-                default: GamesView
-                }
+//            VStack {
+//                switch self.menuEnum {
+//                case .statistics: StatisticsView()
+//                case .properties: PropertiesView()
+//                default: GamesView
+//                }
+//            }
+            List {
+                ForEach(InputEnum.all, content: BuilderView)
             }
             .navigationBarTitle("content view", displayMode: .large)
-
             .onChange(of: self.hashValue, perform: self.updateID)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) { MenuPicker }
@@ -31,11 +58,11 @@ struct MainView: StandardViewProtocol {
 
                 ToolbarItem {
 
-                    NavigationLink(destination: {
-                        GameView()
-                    }, label: {
-                        Image(systemName: "plus")
-                    })
+//                    NavigationLink(destination: {
+//                        GameView()
+//                    }, label: {
+//                        Image(systemName: "plus")
+//                    })
                 }
                 
                 ToolbarItemGroup(placement: .bottomBar) {
@@ -59,23 +86,23 @@ struct MainView: StandardViewProtocol {
         }
     }
     
-    @ViewBuilder
-    public var GamesView: some View {
-        let sort: [NSSortDescriptor] = .gamesSortDesc(self.sortEnum, self.ascending)
-        var predicate: NSPredicate? {
-            if let bool: Bool = self.viewObject.menuEnum.status {
-                let key: String = GameVariable.owned.rawValue
-                return NSPredicate(format: "\(key) == %@", bool as NSNumber)
-            } else { return nil }
-        }
-        FilteredListView(.raw, sort, predicate) { (game: Game) in
-            NavigationLink(destination: {
-                GameView(game)
-            }, label: {
-                GameListView(game)
-            })
-        }
-    }
+//    @ViewBuilder
+//    public var GamesView: some View {
+//        let sort: [NSSortDescriptor] = .gamesSortDesc(self.sortEnum, self.ascending)
+//        var predicate: NSPredicate? {
+//            if let bool: Bool = self.viewObject.menuEnum.status {
+//                let key: String = GameVariable.owned.rawValue
+//                return NSPredicate(format: "\(key) == %@", bool as NSNumber)
+//            } else { return nil }
+//        }
+//        FilteredListView(.game, sort, predicate) { (game: Game) in
+//            NavigationLink(destination: {
+//                GameView(game)
+//            }, label: {
+//                GameListView(game)
+//            })
+//        }
+//    }
     
     @ViewBuilder
     var MenuPicker: some View {
