@@ -31,29 +31,7 @@ public final class Game: NSManagedObject {
         self.add_date = builder.add
         self.owned_boolean = builder.owned
         self.image_data = builder.image
-        self.properties_nsset = con.createNSSet(self, builder)
-        return self.save(con)
-    }
-    
-    public static var rawKeyPath: KeyPath<Game, String?> {
-        return \Self.raw_title_string
-    }
-    
-    public static var releaseKeyPath: KeyPath<Game, Date?> {
-        return \Self.release_date
-    }
-    
-    public static var addKeyPath: KeyPath<Game, Date?> {
-        return \Self.add_date
-    }
-    
-    public static var ownedKeyPath: KeyPath<Game, Bool> {
-        return \Self.owned_boolean
-    }
-    
-    
-    
-    private func save(_ con: Context) -> Game {
+        self.properties_nsset = con.nsset(builder, self)
         con.store()
         return self
     }
@@ -97,6 +75,22 @@ extension Game {
 extension Game : Identifiable {
     
     public static var entityEnum: EntityEnum { .game }
+    
+    public static var rawKeyPath: KeyPath<Game, String?> {
+        return \Self.raw_title_string
+    }
+    
+    public static var releaseKeyPath: KeyPath<Game, Date?> {
+        return \Self.release_date
+    }
+    
+    public static var addKeyPath: KeyPath<Game, Date?> {
+        return \Self.add_date
+    }
+    
+    public static var ownedKeyPath: KeyPath<Game, Bool> {
+        return \Self.owned_boolean
+    }
 
     public var uuid: UUID {
         if let u: UUID = self.identity_uuid {

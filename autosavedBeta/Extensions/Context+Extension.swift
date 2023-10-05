@@ -26,8 +26,16 @@ extension Context {
     
     @discardableResult
     public func remove(_ obj: NSManagedObject) -> Bool {
+        if let g: Game = obj as? Game { remove(game: g) }
         self.delete(obj)
         return self.store()
+    }
+    
+    private func remove(game: Game, props: [Property] = []) -> Void {
+        game.properties.forEach { item in
+            if props.doesntContain(item) { item.removeFromGames_nsset(game) }
+            if item.games.isEmpty { self.remove(item) }
+        }
     }
     
 }
@@ -82,21 +90,10 @@ extension Context {
     }
     
     @discardableResult
-    func createNSSet(_ game: Game, _ builder: any GameBuilderProtocol) -> NSSet {
-        
-        let new: [Property] = builder.builders.map(self.fetchProperty)
-        let old: [Property] = game.properties.filter { !new.contains($0) }
-        
-        old.forEach { item in
-            if item.games.count == 1, let first: Game = item.games.first, game == first {
-                if game == first { self.remove(item) }
-            } else if item.games.isEmpty {
-                self.remove(item)
-            }
-        }
-        
-        return .init(new)
-        
+    func nsset(_ builder: any GameBuilderProtocol, _ game: Game) -> NSSet {
+        let properties: [Property] = builder.builders.map(self.fetchProperty)
+        self.remove(game: game, props: properties)
+        return .init(properties)
     }
     
 }

@@ -147,7 +147,7 @@ extension PropertyDictionary: ModeDictionaryProtocol {
     }
     
     public func insertMode(_ m: ModeEnum) {
-        if !self.contains(m) { self.insert(ModeBuilder(m)) }
+        if self.doesntContain(m) { self.insert(ModeBuilder(m)) }
     }
     
     public func removeMode(_ m: ModeEnum) {

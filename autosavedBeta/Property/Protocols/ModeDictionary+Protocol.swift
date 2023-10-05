@@ -26,4 +26,8 @@ public extension ModeDictionaryProtocol {
         self.modes.contains(m)
     }
     
+    func doesntContain(_ m: ModeEnum) -> Bool {
+        self.modes.doesntContain(m)
+    }
+    
 }

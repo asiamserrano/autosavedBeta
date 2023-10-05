@@ -38,7 +38,7 @@ public class ViewObject: ObservableObject, IdentifiableProtocol {
     @Published public var uuid: UUID = .init()
     
     @Published public var entityEnum: EntityEnum = .game
-        @Published var menuEnum: MenuEnum = .library
+        @Published var menuEnum: MenuEnum = .properties
 //        @Published var viewEnum: ViewEnum = .list
         @Published public var sortEnum: SortEnum = .name
     

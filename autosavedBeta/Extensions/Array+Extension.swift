@@ -14,3 +14,11 @@ public extension Array where Element == [Any] {
     }
     
 }
+
+public extension Array where Element: Equatable {
+    
+    func doesntContain(_ item: Element) -> Bool {
+        !self.contains(item)
+    }
+    
+}

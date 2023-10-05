@@ -16,25 +16,19 @@ struct MainView: StandardViewProtocol {
     var body: some View {
         NavigationStack {
             VStack {
-                NavigationStack {
-                    VStack {
-                        switch self.menuEnum {
-                        case .statistics: StatisticsView()
-                        case .properties: PropertiesView()
-                        default: GamesView
-                        }
-                    }
-                    .navigationBarTitle("content view", displayMode: .large)
-                    .toolbar {
-                        ToolbarItem(placement: .navigationBarLeading) { MenuPicker }
-//                        ToolbarItem(placement: .status) { FilteredValue }
-                    }
+                switch self.menuEnum {
+                case .statistics: StatisticsView()
+                case .properties: PropertiesView()
+                default: GamesView
                 }
-                
             }
+            .navigationBarTitle("content view", displayMode: .large)
+
             .onChange(of: self.hashValue, perform: self.updateID)
             .toolbar {
-                
+                ToolbarItem(placement: .navigationBarLeading) { MenuPicker }
+                //                        ToolbarItem(placement: .status) { FilteredValue }
+
                 ToolbarItem {
 
                     NavigationLink(destination: {
@@ -74,7 +68,7 @@ struct MainView: StandardViewProtocol {
                 return NSPredicate(format: "\(key) == %@", bool as NSNumber)
             } else { return nil }
         }
-        FilteredListView(.game, sort, predicate) { (game: Game) in
+        FilteredListView(.raw, sort, predicate) { (game: Game) in
             NavigationLink(destination: {
                 GameView(game)
             }, label: {
@@ -94,12 +88,6 @@ struct MainView: StandardViewProtocol {
                     }
                 }
             }.onChange(of: self.menuEnum, perform: self.reset)
-//            .onChange(of: self.menuEnum) {
-//                switch $0 {
-//                case .library: return
-//                default: self.viewObject.valueEnum = nil
-//                }
-//            }
         }, label: {
             Image(systemName: "line.3.horizontal")
         })

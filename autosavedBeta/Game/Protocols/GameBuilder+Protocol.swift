@@ -40,4 +40,10 @@ extension GameBuilderProtocol {
         .init(context: con).update(con, self)
     }
     
+//    @discardableResult
+//    public func nsset(_ con: Context, _ game: Game) -> NSSet {
+//        con.nsset(<#T##builder: GameBuilderProtocol##GameBuilderProtocol#>, <#T##game: Game##Game#>)
+////        .init(self.builders.map(con.fetchProperty))//con.createNSSet(self, builder)
+//    }
+    
 }

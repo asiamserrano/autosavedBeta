@@ -85,7 +85,8 @@ struct PersistenceController {
             }
             
             GameBuilder.init()
-                .withTitle("Game \(str)")
+//                .withTitle("Game \(str)")
+                .withTitle(str)
                 .withRelease(.random)
                 .withRandomAddDate()
                 .withStatus(owned)
