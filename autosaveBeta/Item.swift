@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftData
+import Core
 
 @Model
 final class Item {
@@ -15,4 +16,5 @@ final class Item {
     init(timestamp: Date) {
         self.timestamp = timestamp
     }
+        
 }
