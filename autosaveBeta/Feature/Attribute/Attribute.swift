@@ -42,7 +42,7 @@ public enum Attribute {
         case mode(Mode.Enum)
         case platform(Platform.Builder)
         
-        public var typeEnum: Self.Container.Key.Enum {
+        public var typeEnum: Self.Enum.Enum {
             self.type.type
         }
         
@@ -60,13 +60,6 @@ public enum Attribute {
             case .mode(let m): return m
             case .platform(let p): return p
             }
-        }
-        
-        public var compound: Compound {
-            .init(storage: [
-                0: self.type.id,
-                1: self.instance.id
-            ])
         }
         
         public var properties: Property.Builder.Collector {

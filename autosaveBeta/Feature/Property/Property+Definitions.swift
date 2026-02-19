@@ -35,6 +35,10 @@ extension Property {
             }
         }
         
+        public static func input(_ type: Input.Enum, _ value: String) -> Self {
+            .input(.init(type, value))
+        }
+        
         public typealias Model = Property
         public typealias Enum = Property.Enum.Builder
                 
@@ -52,10 +56,15 @@ extension Property {
             }
         }
         
-        public var compound: Compound {
-            .init(storage: .defaultValue)
+        public var value: Str {
+            switch self {
+            case .input(let i): return i.str
+            case .mode(let m): return .init(enumerable: m)
+            case .system(let s): return .init(enumerable: s)
+            case .format(let f): return .init(enumerable: f)
+            }
         }
-        
+
     }
     
 }

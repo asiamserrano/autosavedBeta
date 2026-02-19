@@ -11,7 +11,7 @@ import SwiftData
 
 public enum ModelKit {
     
-    public protocol Interface: ProtocolKit.Random.Represent.Interface {}
+    public protocol Interface: Randomizable {}
     
     public enum Model {
         
@@ -55,10 +55,6 @@ extension ModelKit.Model.Interface {
     
     public var compound: Compound {
         self.builder.compound
-    }
-    
-    public var representation: String {
-        self.builder.representation
     }
     
 }

@@ -14,13 +14,13 @@ public final class Property: ModelKit.Model.Interface {
     
     public private(set) var uuid: UUID
     public private(set) var compound_key: String
-    public private(set) var key_builder_id: String
+    public private(set) var type_id: String
     public private(set) var value_id: String
     public private(set) var value_rawValue:  String
     
     public init() {
         self.uuid = .init()
-        self.key_builder_id = .defaultValue
+        self.type_id = .defaultValue
         self.value_id = .defaultValue
         self.value_rawValue =  .defaultValue
         self.compound_key = .defaultValue
@@ -29,17 +29,30 @@ public final class Property: ModelKit.Model.Interface {
     public private(set) var games: [Game] = []
     public private(set) var platforms: [Platform] = []
     
-    public convenience init(builder: Builder) {
-        self.init()
+    public init(builder: Builder) {
+        self.uuid = .init()
+        self.type_id = builder.type.id
+        self.value_id = builder.value.id
+        self.value_rawValue = builder.value.rawValue
+        self.compound_key = builder.compound_key
     }
     
     public var builder: Builder {
-        .random
+        switch self.type {
+        case .input(let i): return .input(.init(i, self.value_rawValue))
+        case .mode: return .mode(.init(self.value_id))
+        case .system: return .system(.init(self.value_id))
+        case .format: return .format(.init(self.value_id))
+        }
+    }
+    
+    public var type: Builder.Enum {
+        .init(self.type_id)
     }
 
 //    public init(uuid: UUID, builder: Builder) {
 //        self.uuid = uuid
-//        self.key_builder_id = builder.compoundKey.id
+//        self.type_id = builder.compoundKey.id
 //        self.value_id = builder.valueCompound.id
 //        self.value_rawValue =  builder.valueCompound.rawValue
 //        self.compound_key = builder.compoundKey.yoke
@@ -68,14 +81,14 @@ public final class Property: ModelKit.Model.Interface {
 //    public static func getByKeyBuilder(_ keyBuilder: Property.Key.Builder) -> FetchDescriptor<Property> {
 //        let id: String = keyBuilder.id
 //        return .init(predicate: #Predicate {
-//            $0.key_builder_id == id
+//            $0.type_id == id
 //        })
 //    }
 //    
 //    public static func getByKey(_ key: Property.Key) -> FetchDescriptor<Property> {
 //        let ids: [String] = key.builderCases.map(\.id)
 //        return .init(predicate: #Predicate {
-//            ids.contains($0.key_builder_id)
+//            ids.contains($0.type_id)
 //        })
 //    }
 //    
@@ -88,7 +101,7 @@ public final class Property: ModelKit.Model.Interface {
 //        [
 //            "uuid": self.uuid.uuidString,
 //            "compound_key": self.compound_key,
-//            "key_builder_id": self.key_builder_id,
+//            "type_id": self.type_id,
 //            "value_id": self.value_id,
 //            "value_rawValue": self.value_rawValue
 //        ]

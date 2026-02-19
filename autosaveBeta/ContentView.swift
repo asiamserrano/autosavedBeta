@@ -7,55 +7,59 @@
 
 import SwiftUI
 import SwiftData
+import Core
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+    
+//    @Query private var items: [Item]
+    @Query private var properties: [Property]
+    
+    @State var builders: [Property.Builder] = .init()
+    
+    let uuid: UUID = .defaultValue
 
     var body: some View {
-        NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
-                    }
-                }
-                .onDelete(perform: deleteItems)
+        NavigationStack {
+            Form {
+//                ForEach(builders) { property in
+//                    OrientationStack(.vstack, {
+//                        ForEach(property.data, id:\.self) { str in
+//                            Text(str)
+//                        }
+//                    })
+//                }
             }
+            .navigationTitle(self.uuid.uuidString)
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
                 ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
+                    Button(action: addProperty) {
+                        Label("Add Property", systemImage: "plus")
                     }
                 }
             }
-        } detail: {
-            Text("Select an item")
         }
     }
-
-    private func addItem() {
+    
+    private func addProperty() {
         withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
+//            let newItem = Property.init()
+            self.builders.append(.random)
+//            modelContext.insert(newItem)
         }
     }
 
-    private func deleteItems(offsets: IndexSet) {
+    private func deleteProperty(offsets: IndexSet) {
         withAnimation {
             for index in offsets {
-                modelContext.delete(items[index])
+                modelContext.delete(properties[index])
             }
         }
     }
+    
 }
 
 #Preview {
     ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
+        .modelContainer(for: Property.self, inMemory: true)
 }

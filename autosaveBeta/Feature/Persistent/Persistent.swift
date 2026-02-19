@@ -63,11 +63,4 @@ extension Persistent.Model.Builder {
         }
     }
 
-    public var compound: Compound {
-        .init(storage: [
-            0: self.type.id,
-            1: self.instance.id
-        ])
-    }
-
 }

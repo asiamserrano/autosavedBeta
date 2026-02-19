@@ -1,13 +1,60 @@
-////
-////  Property+Builder.swift
-////  autosaveBeta
-////
-////  Created by Asia Serrano on 2/11/26.
-////
 //
-//import Foundation
-//import Core
+//  Property+Builder.swift
+//  autosaveBeta
 //
+//  Created by Asia Serrano on 2/11/26.
+//
+
+import Foundation
+import Core
+import SwiftUI
+
+struct PropertyBuilderView: View {
+    
+//    let builder: Property.Builder = .input(.init(.series, "series"))
+    let builders: Property.Builder.Collector = .init(.mode(.single), .format(.physical(.disc)), .input(.series, "Grand Theft Auto"))
+        
+//    var data: [String] {
+//        [
+//            self.builder.type.id,
+//            self.builder.type.rawValue,
+//            self.builder.value.id,
+//            self.builder.value.rawValue,
+//            self.builder.compound_key
+//        ]
+//    }
+     
+    var body: some View {
+        NavigationStack {
+            Form {
+                ForEach(self.builders) { builder in
+                    Section {
+                        ForEach(getData(builder), id:\.self) {
+                            Text($0)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    private func getData(_ builder: Property.Builder) -> [String] {
+        [
+            builder.type.id,
+            builder.type.rawValue,
+            builder.value.id,
+            builder.value.rawValue,
+            builder.compound_key
+        ]
+    }
+    
+}
+
+#Preview {
+    PropertyBuilderView()
+}
+
+
 //extension Property.Builder {
 //    
 //  

@@ -41,7 +41,7 @@ extension Game.Builder {
 extension Game.Builder: Game.Object.Interface {
     
     public var title: String {
-        self.titleStr.representation
+        self.titleStr.rawValue
     }
     
 }
@@ -52,10 +52,10 @@ extension Game.Builder: ModelKit.Model.Builder.Interface {
     public var compound: Compound {
         self.compoundForSwiftData
     }
-    
-    public var representation: String {
-        "\(self.title) (\(self.release.dashes))"
-    }
+
+//    public var id: String {
+//        self.idForSwiftData
+//    }
 }
 
 extension Game.Builder: Defaultable {

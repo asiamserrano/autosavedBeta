@@ -26,10 +26,16 @@ extension Game.Object.Interface {
     public typealias Compound = Compoundable.Interface.Compound
     
     public var compoundForSwiftData: Compound {
-        .init(storage: [
-            0: self.title.canonicalized,
-            1: self.release.dashless
-        ])
+        .init(first: self.title.canonicalized, last: self.release.dashless)
+//        .init(storage: [
+//            0: self.title.canonicalized,
+//            1: self.release.dashless
+//        ])
     }
+    
+//    public var idForSwiftData: String {
+//        let array = [self.title.canonicalized, self.release.dashless]
+//        return array.joined(separator: " | ")
+//    }
     
 }

@@ -30,22 +30,24 @@ extension Platform {
     
 }
 
-extension Platform.Builder: ProtocolKit.Random.Represent.Compound.Interface {
+extension Platform.Builder: ProtocolKit.Random.Compound.Interface {
     
     public static var random: Self {
         let s: System.Builder = .random
         return .init(system: s, format: s.formatBuilders.random)
     }
     
-    public var representation: String {
-        "\(self.system.rawValue) | \(self.format.rawValue)"
+    public var compound: Compound {
+        .init(first: self.system, last: self.format)
+//        .init(storage: [
+//            0: self.system.id,
+//            1: self.format.id
+//        ])
     }
     
-    public var compound: Compound {
-        .init(storage: [
-            0: self.system.id,
-            1: self.format.id
-        ])
-    }
+//    public var id: String {
+//        let array = [self.system.id, self.format.id]
+//        return array.joined(separator: " | ")
+//    }
     
 }

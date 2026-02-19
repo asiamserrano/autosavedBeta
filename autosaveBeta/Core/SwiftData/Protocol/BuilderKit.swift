@@ -10,7 +10,7 @@ import Core
 
 public enum BuilderKit {
     
-    public typealias Interface = ProtocolKit.Random.Represent.Compound.Interface
+    public typealias Interface = ProtocolKit.Random.Compound.Interface
     
     public enum Implementation {
         
@@ -32,7 +32,6 @@ public enum BuilderKit {
             public init(storage: Storage) {
                 self.instance = .init(storage: storage)
             }
-            
             public var storage: Storage {
                 self.instance.storage
             }
@@ -45,9 +44,14 @@ public enum BuilderKit {
 
 extension BuilderKit.Implementation.Interface {
     
-    public var representation: String {
-        self.instance.representation
+    public var compound: Compound {
+        .init(first: self.type, last: self.instance)
     }
+    
+//    public var id: String {
+//        let array = [self.type.id, self.instance.id]
+//        return array.joined(separator: " | ")
+//    }
     
 }
 

@@ -17,11 +17,11 @@ public struct Input {
     public struct Builder {
         
         public let type: Enum
-        public let rawValue: String
+        public let str: Str
 
         public init(_ t: Enum, _ s: String) {
             self.type = t
-            self.rawValue = s.trimmed
+            self.str = .init(string: s)
         }
 
     }
@@ -38,15 +38,38 @@ extension Input.Builder: BuilderKit.Interface {
         .init(i, .random)
     }
     
-    public var representation: String {
-        "(\(self.type.rawValue)) \(self.rawValue)"
-    }
-    
+    public var rawValue: String { self.str.rawValue }
+
     public var compound: Compound {
-        .init(storage: [
-            0: self.type.id,
-            1: self.rawValue.canonicalized
-        ])
+        .init(first: self.type, last: self.str.id)
     }
     
+    public var valueCompound: Compound {
+        .init(first: self.str.id, last: self.str.rawValue)
+    }
+    
+}
+
+// -- MARK: Preview
+
+import SwiftUI
+
+struct InputBuilderView: View {
+    
+    let builder: Input.Builder = .init(.series, "Grand Theft Auto")
+     
+    var body: some View {
+        NavigationStack {
+            Form {
+                SpacedLabel("type", self.builder.type.rawValue)
+                SpacedLabel("value", self.builder.rawValue)
+            }
+            
+        }
+    }
+    
+}
+
+#Preview {
+    InputBuilderView()
 }
