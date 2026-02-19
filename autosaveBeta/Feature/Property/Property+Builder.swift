@@ -27,7 +27,7 @@ struct PropertyBuilderView: View {
     var body: some View {
         NavigationStack {
             Form {
-                ForEach(self.builders) { builder in
+                ForEach(self.builders, id:\.self) { builder in
                     Section {
                         ForEach(getData(builder), id:\.self) {
                             Text($0)

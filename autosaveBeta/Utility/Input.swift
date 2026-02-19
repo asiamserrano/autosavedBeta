@@ -63,6 +63,8 @@ struct InputBuilderView: View {
             Form {
                 SpacedLabel("type", self.builder.type.rawValue)
                 SpacedLabel("value", self.builder.rawValue)
+                SpacedLabel("compound id", self.builder.compound.id)
+                SpacedLabel("compound hash", self.builder.compound.hashValue.description)
             }
             
         }
