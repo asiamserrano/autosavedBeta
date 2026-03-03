@@ -12,7 +12,7 @@ import Core
 
 extension Game {
     
-    public enum Status: Enumerable {
+    public enum Status: Enumerable.Interface {
         case library, wishlist
     }
     

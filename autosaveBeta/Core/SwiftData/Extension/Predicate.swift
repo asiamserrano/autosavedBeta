@@ -22,7 +22,7 @@
 //            return #Predicate<Platform> { $0.uuid == id } as? Predicate<T>
 //        }
 //    }
-//    
+//
 //    public static func getByCompositeKey<T: PersistentModelProtocol>(model: Generic.Model.Enum,_ compound: Compound.Key) -> Predicate<T>? {
 //        let key: String = compound.yoke
 //        switch model {
@@ -34,7 +34,7 @@
 //            return #Predicate<Platform> { $0.compound_key == key } as? Predicate<T>
 //        }
 //    }
-//    
+//
 //    public static func getByBuilder<T: PersistentModelProtocol>(_ builder: T.Builder) -> Predicate<T>? {
 //        .getByCompositeKey(model: builder.modelType, builder.compoundKey)
 //    }

@@ -1,13 +1,350 @@
-////
-////  ModelContext.swift
-////  autosave
-////
-////  Created by Asia Michelle Serrano on 5/7/25.
-////
 //
-//import Foundation
-//import SwiftData
+//  ModelContext.swift
+//  autosave
 //
+//  Created by Asia Michelle Serrano on 5/7/25.
+//
+
+import Foundation
+import SwiftData
+import Core
+
+
+extension ModelContext {
+    
+    public typealias Enum = Persistent.Model.Enum
+    public typealias Model = ModelKit.Model.Interface
+    public typealias Builder = ModelKit.Model.Builder.Interface
+    
+    public enum Action {
+        case insert, delete
+    }
+    
+    public func random(_ type: Enum) -> Void {
+        switch type {
+        case .game: create(self.game)
+        case .property: create(self.property)
+        case .platform: create(self.platform)
+        }
+    }
+    
+    public func delete<T: Model>(_ index: IndexSet, _ models: [T]) -> Void {
+        
+    }
+    
+}
+
+private extension ModelContext {
+    
+    typealias Initializer<B: Builder> = (B) -> B.Model
+
+    func game(_ builder: Game.Builder) -> Game {
+        .init(builder: builder)
+    }
+    
+    func property(_ builder: Property.Builder) -> Property {
+        .init(builder: builder)
+    }
+    
+    func platform(_ builder: Platform.Builder) -> Platform {
+        let s: Property.Builder = .system(builder.system)
+        let system: Property = create(s, self.property)
+        let f: Property.Builder = .format(builder.format)
+        let format: Property = create(f, self.property)
+        return Platform(system: system, format: format, builder)
+    }
+    
+    func create<B: Builder>(_ initializer: Initializer<B>) -> Void {
+        while true {
+            let builder: B = .random
+            if self.fetchByCompoundKey(builder) == nil {
+                create(builder, initializer)
+                break
+            }
+        }
+    }
+    
+    @discardableResult
+    func create<B: Builder>(_ builder: B, _ initializer: Initializer<B>) -> B.Model {
+        if let model: B.Model = self.fetchByCompoundKey(builder) {
+            return model
+        } else {
+            let model = initializer(builder)
+            self.save(model, .insert)
+            return model
+        }
+    }
+    
+    func fetchByCompoundKey<B: Builder>(_ builder: B) -> B.Model? {
+        self.fetch(first: .getByCompoundKey(model: builder.modelType, builder.compound_key))
+    }
+    
+    func fetch<T: Model>(all: FetchDescriptor<T>) -> [T]? {
+        ((try? self.fetch(all)) ?? .defaultValue).optional
+    }
+    
+    func fetch<T: Model>(first: FetchDescriptor<T>) -> T? {
+        self.fetch(all: first)?.first
+    }
+    
+    func save<T: PersistentModel>(_ model: T, _ action: Action) {
+        do {
+            switch action {
+            case .insert:
+                print("inserting model")
+                self.insert(model)
+            case .delete:
+                print("deleting model")
+                self.delete(model)
+            }
+            try self.save()
+        } catch let error {
+            fatalError("error saving in model context: \(error.localizedDescription)")
+        }
+    }
+    
+//    func delete<T: Model>(model: T) -> Void {
+//        if let model = model as? Game {
+//            // check the platforms first to see if there are any phantom properties that need to be cleaned up
+//            // then check all of the properties from the game and the previous step
+//            
+//            let platforms = model.platforms
+//            let properties = model.properties
+//            
+//        } else if let model = model as? Property {
+//            
+//            // check if the filtered games are associated with any platform
+//            
+//            if model.typeEnum.isPlatform {
+//                // get the platforms
+//                let platforms = model.platforms
+//                // get the properties from the platforms that should also be removed
+//                let properties: Property.Array = platforms.flatMap {
+//                    $0.deleteFilter(.property, model)
+//                }
+//                // remove those platforms
+//                platforms.forEach { self.save($0, .delete) }
+//                // remove those properties
+//                properties.forEach { self.save($0, .delete) }
+//                
+////                let properties: Property.Array = platforms.flatMap { platform in
+////                    platform.deleteFilter(.property, { $0 == model })
+////                }
+//            }
+//
+//            
+//            // check if the games are empty for the property
+//        } else if let model = model as? Platform {
+//            // check if either of the properties have other platforms it referrences
+//            let properties: Property.Array = model.deleteFilter(.property)
+//            // remove those properties
+//            properties.forEach { self.save($0, .delete) }
+//        }
+//        
+//        self.save(model, .delete)
+//    }
+    
+    func delete<T: Model>(model: T) -> Void {
+        if let model = model as? Game {
+            // check the platforms first to see if there are any phantom properties that need to be cleaned up
+            // then check all of the properties from the game and the previous step
+            
+            let platforms = model.platforms
+            let properties = model.properties
+            
+            self.save(model, .delete)
+            
+            // 1) are the games empty?
+            // 2)
+            
+        } else if let model = model as? Property {
+            
+            // check if the filtered games are associated with any platform
+            
+            if model.typeEnum.isPlatform {
+                // get the platforms
+                let platforms = model.platforms
+                // get the properties from the platforms that should also be removed
+                let properties: Property.Array = platforms.flatMap {
+                    $0.deleteFilter(.property, model)
+                }
+                // remove those platforms
+                platforms.forEach { self.save($0, .delete) }
+                // remove those properties
+                properties.forEach { self.save($0, .delete) }
+                
+//                let properties: Property.Array = platforms.flatMap { platform in
+//                    platform.deleteFilter(.property, { $0 == model })
+//                }
+            }
+
+            
+            // check if the games are empty for the property
+        } else if let model = model as? Platform {
+            let properties: Property.Array = model.deleteFilter(.property)
+            properties.forEach { self.save($0, .delete) }
+        }
+        
+        self.save(model, .delete)
+    }
+    
+    func delete<T: Model>(models: [T]) -> Void {
+        models.forEach { self.save($0, .delete) }
+    }
+    
+//    func get<T: Model>(model: T) -> [Attribute.Model] {
+//        switch model.persistent {
+//        case .game(let game):
+//            return game.properties.compactMap(\.attribute).union(game.platforms.flatMap(\.attribute))
+//        case .property(let property):
+//            <#code#>
+//        case .platform(let platform):
+//            <#code#>
+//        }
+//    }
+    
+}
+
+//fileprivate extension Array where Element: ModelContext.Model {
+//    
+//    func shouldDelete(_ element: Element) -> Bool {
+//        switch self.count {
+//        case 0:
+//            return true
+//        case 1:
+//            return self.first?.compound_key == element.compound_key
+//        default:
+//            return false
+//        }
+//    }
+//    
+//}
+
+fileprivate extension Predicate {
+    
+    static func getByCompoundKey<T: ModelContext.Model>(model: ModelContext.Enum, _ compound_key: String) -> Predicate<T>? {
+        switch model {
+        case .game:
+            return #Predicate<Game> { $0.compound_key == compound_key } as? Predicate<T>
+        case .property:
+            return #Predicate<Property> { $0.compound_key == compound_key } as? Predicate<T>
+        case .platform:
+            return #Predicate<Platform> { $0.compound_key == compound_key } as? Predicate<T>
+        }
+    }
+    
+    static func getByUUID<T: ModelContext.Model>(model: ModelContext.Enum, _ uuid: UUID) -> Predicate<T>? {
+        switch model {
+        case .game:
+            return #Predicate<Game> { $0.uuid == uuid } as? Predicate<T>
+        case .property:
+            return #Predicate<Property> { $0.uuid == uuid } as? Predicate<T>
+        case .platform:
+            return #Predicate<Platform> { $0.uuid == uuid } as? Predicate<T>
+        }
+    }
+    
+//    static func contains<T: ModelContext.Model>(model: ModelContext.Enum, _ persistent: Persistent.Model) -> Predicate<T>? {
+//        switch model {
+//        case .game:
+//            switch persistent {
+//            case .game:
+//                return nil
+//            case .property(let property):
+//                return #Predicate<Game> { $0.properties.contains(property) } as? Predicate<T>
+//            case .platform(let platform):
+//                return #Predicate<Game> { $0.platforms.contains(platform) } as? Predicate<T>
+//            }
+//        case .property:
+//            switch persistent {
+//            case .game(let game):
+//                return #Predicate<Property> { $0.games.contains(game) } as? Predicate<T>
+//            case .property(let property):
+//                return nil
+//            case .platform(let platform):
+//                return #Predicate<Property> { $0.platforms.contains(platform) } as? Predicate<T>
+//            }
+//        case .platform:
+//            switch persistent {
+//            case .game(let game):
+//                return #Predicate<Platform> { $0.games.contains(game) } as? Predicate<T>
+//            case .property(let property):
+//                return #Predicate<Platform> { $0.properties.contains(property) } as? Predicate<T>
+//            case .platform(let platform):
+//                return nil
+//            }
+//        }
+//    }
+    
+}
+
+fileprivate extension FetchDescriptor where T: ModelContext.Model {
+    
+    static func getByCompoundKey(model: ModelContext.Enum, _ compound_key: String) -> Self {
+        .init(predicate: .getByCompoundKey(model: model, compound_key))
+    }
+    
+    static func getByUUID(model: ModelContext.Enum, _ uuid: UUID) -> Self {
+        .init(predicate: .getByUUID(model: model, uuid))
+    }
+    
+//    static func contains(model: ModelContext.Enum, _ persistent: Persistent.Model) -> Self {
+//        .init(predicate: .contains(model: model, persistent))
+//    }
+    
+//    static func contains<M: ModelContext.Model>(model: ModelContext.Enum, _ m: M) -> Self {
+//        .contains(model: model, m.persistent)
+//    }
+    
+}
+
+
+
+//    func fetchByCompoundKey<M: Model, T: ModelKit.Interface>(_ t: T) -> M? {
+//        let compound_key = t.compound_key
+//        let descriptor = FetchDescriptor<M>(predicate: #Predicate<M> { $0.compound_key == compound_key })
+//        let results = try? self.fetch(descriptor)
+//        return results?.first ?? nil
+//    }
+    
+//    func fetchByCompoundKey(game: Game.Builder?) -> Game? {
+//        if let game = game {
+//            let compound_key = game.compound_key
+//            let descriptor = FetchDescriptor<Game>(predicate: #Predicate<Game> { $0.compound_key == compound_key })
+//            let results = try? self.fetch(descriptor)
+//            return results?.first
+//        } else { return nil }
+//    }
+//
+//    func fetchByCompoundKey(property: Property.Builder?) -> Property? {
+//        if let property = property {
+//            let compound_key = property.compound_key
+//            let descriptor = FetchDescriptor<Property>(predicate: #Predicate<Property> { $0.compound_key == compound_key })
+//            let results = try? self.fetch(descriptor)
+//            return results?.first
+//        } else { return nil }
+//    }
+//
+//    func fetchByCompoundKey(platform: Platform.Builder?) -> Platform? {
+//        if let platform = platform {
+//            let compound_key = platform.compound_key
+//            let descriptor = FetchDescriptor<Platform>(predicate: #Predicate<Platform> { $0.compound_key == compound_key })
+//            let results = try? self.fetch(descriptor)
+//            return results?.first
+//        } else { return nil }
+//    }
+    
+//    func fetchByCompoundKey<B: Builder>(_ builder: B) -> B.Model? {
+//        switch builder.modelType {
+//        case .game:
+//            return fetchByCompoundKey(game: builder as? Game.Builder) as? B.Model
+//        case .property:
+//            return fetchByCompoundKey(property: builder as? Property.Builder) as? B.Model
+//        case .platform:
+//            return fetchByCompoundKey(platform: builder as? Platform.Builder) as? B.Model
+//        }
+//    }
+
 //extension ModelContext {
 //    
 //    public func add<T: PersistentModel>(_ model: T) {
@@ -334,13 +671,13 @@
 ////        self.store()
 ////    }
 ////    
-////    func store() {
-////        do {
-////            try self.save()
-////        } catch let error {
-////            fatalError("error saving in model context: \(error.localizedDescription)")
-////        }
-////    }
+//    func store() {
+//        do {
+//            try self.save()
+//        } catch let error {
+//            fatalError("error saving in model context: \(error.localizedDescription)")
+//        }
+//    }
 ////    
 ////}
 ////

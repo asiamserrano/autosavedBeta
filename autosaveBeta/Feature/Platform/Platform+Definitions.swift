@@ -39,15 +39,84 @@ extension Platform.Builder: ProtocolKit.Random.Compound.Interface {
     
     public var compound: Compound {
         .init(first: self.system, last: self.format)
-//        .init(storage: [
-//            0: self.system.id,
-//            1: self.format.id
-//        ])
     }
     
-//    public var id: String {
-//        let array = [self.system.id, self.format.id]
-//        return array.joined(separator: " | ")
-//    }
+}
+
+
+import SwiftUI
+
+struct PlatformDefinitionsView: View {
     
+    let systemBuilder: System.Builder = .random
+    
+    var formatBuilder: Format.Builder {
+        .random(systemBuilder)
+    }
+    
+    var systemProperty: Property {
+        .init(builder: .system(systemBuilder))
+    }
+    
+    var formatProperty: Property {
+        .init(builder: .format(formatBuilder))
+    }
+    
+    var platform: Platform {
+        .init(system: systemProperty, format: formatProperty, .init(system: systemBuilder, format: formatBuilder))
+    }
+    
+    var platformBuilder: Platform.Builder {
+        platform.builder
+    }
+    
+    var body: some View {
+        Previewer {
+//            Section("systemBuilder", content: {
+//                Text(systemBuilder.id)
+//            })
+//            Section("propertyBuilder", content: {
+//                Text(propertyBuilder.instance.id)
+//            })
+//            Section("platformBuilder", content: {
+//                Text(platformBuilder.system.id)
+//            })
+            
+//            CompoundView("systemBuilder", systemBuilder)
+//            CompoundView("propertyBuilder", propertyBuilder.instance)
+//            CompoundView("platformBuilder", platformBuilder.system)
+            
+            
+            ContainerView("systemBuilder", systemBuilder.debug)
+            ContainerView("formatBuilder", formatBuilder.debug)
+            ContainerView("systemProperty", systemProperty.debug)
+            ContainerView("formatProperty", formatProperty.debug)
+            ContainerView("platform", platform.debug)
+            ContainerView("platformBuilder", platformBuilder.debug)
+            
+        }
+    }
+    
+    @ViewBuilder
+    private func ContainerView(_ s: String, _ c: String.Container) -> some View {
+        DisclosureGroup(s, content: {
+            ForEach(c) { element in
+                Section(element.key) {
+                    Text(element.value)
+                }
+            }
+        })
+    }
+    
+    @ViewBuilder
+    private func CompoundView(_ s: String, _ t: any Compoundable.Interface) -> some View {
+        Section(s, content: {
+            Text(t.id(.newLine))
+        })
+    }
+    
+}
+
+#Preview {
+    PlatformDefinitionsView()
 }

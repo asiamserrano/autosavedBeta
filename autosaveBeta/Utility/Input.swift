@@ -10,7 +10,7 @@ import Core
 
 public struct Input {
     
-    public enum Enum: Enumerable {
+    public enum Enum: Enumerable.Interface {
         case series, developer, publisher, genre
     }
     

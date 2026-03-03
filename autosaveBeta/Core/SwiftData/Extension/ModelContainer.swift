@@ -1,12 +1,123 @@
-////
-////  ModelContainer.swift
-////  autosave
-////
-////  Created by Asia Michelle Serrano on 5/7/25.
-////
 //
-//import Foundation
-//import SwiftData
+//  ModelContainer.swift
+//  autosaveBeta
+//
+//  Created by Asia Serrano on 2/19/26.
+//
+
+import Foundation
+import Core
+import SwiftData
+
+extension ModelContainer {
+    
+    public typealias Models = [any PersistentModel.Type]
+    
+    private convenience init(memory: Bool, models: Models) {
+        do {
+//            let schema: Schema = .init([
+//                Game.self, Property.self, Platform.self, Item.self
+//            ])
+            let schema: Schema = .init(models)
+            let config: ModelConfiguration = .init(schema: schema, isStoredInMemoryOnly: memory)
+            try self.init(for: schema, configurations: [config])
+        } catch {
+            fatalError("Could not create ModelContainer: \(error)")
+        }
+    }
+    
+    private static func preview(models: Models) -> ModelContainer {
+        let container: ModelContainer = .init(memory: true, models: models)
+
+        container.mainContext.autosaveEnabled = false
+        container.mainContext.undoManager = .init()
+
+        return container
+    }
+    
+    public static func preview(_ type: Persistent.Model.Enum) -> ModelContainer {
+        .preview(models: type.models)
+    }
+    
+    public static var preview: ModelContainer {
+        .preview(models: Persistent.Model.Enum.cases.flatMap(\.models))
+    }
+    
+//    private func insert<T: PersistentModelProtocol>(_ model: T?) {
+//        if let model = model {
+//            self.mainContext.insert(model)
+//            self.mainContext.store()
+//        }
+//    }
+        
+}
+
+extension ModelContainer {
+    
+//    public static func loadAll(_ aSize: Int, _ size: Int) -> ModelContainer {
+//        ModelContainerLoader.load(gamesSize: aSize, attributesSize: size, .preview)
+//    }
+//
+//    public static func loadAttributes(_ size: Int) -> ModelContainer {
+//        ModelContainerLoader.load(attributesSize: size, .preview)
+//    }
+//
+//    public static func loadGames(_ aSize: Int) -> ModelContainer {
+//        ModelContainerLoader.load(gamesSize: aSize, .preview)
+//    }
+    
+//    public static var preview: ModelContainer {
+//        let container: ModelContainer = .init(memory: true)
+//
+//        container.mainContext.autosaveEnabled = false
+//        container.mainContext.undoManager = .init()
+//
+//        return container
+//    }
+    
+//    public static var preview: ModelContainer {
+//        
+//    }
+    
+//    public static func preview<T: PersistentModel>(_ type: T.Type) -> ModelContainer {
+//        let container: ModelContainer = .init(memory: true, models: .init(type))
+//
+//        container.mainContext.autosaveEnabled = false
+//        container.mainContext.undoManager = .init()
+//
+//        return container
+//    }
+    
+//    public static func preview(_ type: Persistent.Model.Enum) -> ModelContainer {
+//        let container: ModelContainer = .init(memory: true, models: type.models)
+//
+//        container.mainContext.autosaveEnabled = false
+//        container.mainContext.undoManager = .init()
+//
+//        return container
+//    }
+    
+//    public static func preview<T: PersistentModel>(_ type: T.Type) -> ModelContainer {
+//        let container: ModelContainer = .init(memory: true, models: .init(type))
+//
+//        container.mainContext.autosaveEnabled = false
+//        container.mainContext.undoManager = .init()
+//
+//        return container
+//    }
+    
+//    public static var properties: ModelContainer {
+//        .preview(Property.self)
+//    }
+//    
+//    public static var games: ModelContainer {
+//        .preview(Game.self)
+//    }
+ 
+}
+
+
+
 //
 //extension ModelContainer {
 //    

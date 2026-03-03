@@ -31,7 +31,7 @@
 //    }
 //    
 //}
-//
+
 ////
 ////// CODEx CHANGE START: Replaced generic byCompositeKey/byUUID helpers with a generic predicate wrapper that compiles for all model types.
 ////public extension FetchDescriptor {

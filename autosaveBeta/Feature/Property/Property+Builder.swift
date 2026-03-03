@@ -9,50 +9,106 @@ import Foundation
 import Core
 import SwiftUI
 
-struct PropertyBuilderView: View {
+extension Property.Builder: BuilderKit.Implementation.Interface {
     
-//    let builder: Property.Builder = .input(.init(.series, "series"))
-    let builders: Property.Builder.Collector = .init(.mode(.single), .format(.physical(.disc)), .input(.series, "Grand Theft Auto"))
-        
-//    var data: [String] {
-//        [
-//            self.builder.type.id,
-//            self.builder.type.rawValue,
-//            self.builder.value.id,
-//            self.builder.value.rawValue,
-//            self.builder.compound_key
-//        ]
-//    }
-     
-    var body: some View {
-        NavigationStack {
-            Form {
-                ForEach(self.builders, id:\.self) { builder in
-                    Section {
-                        ForEach(getData(builder), id:\.self) {
-                            Text($0)
-                        }
-                    }
-                }
-            }
+    public static var modelType: ModelEnum { .property }
+    
+    public static var random: Self { .random(Enum.random) }
+
+    public static func random(_ type: Enum) -> Self {
+        switch type {
+        case .input(let i): return .input(.init(i, .random))
+        case .mode: return .mode(.random)
+        case .system: return .system(.random)
+        case .format: return .format(.random)
         }
     }
     
-    private func getData(_ builder: Property.Builder) -> [String] {
-        [
-            builder.type.id,
-            builder.type.rawValue,
-            builder.value.id,
-            builder.value.rawValue,
-            builder.compound_key
-        ]
+    public static func random(_ type: Property.Enum) -> Self {
+        switch type {
+        case .input: return .input(.random)
+        case .mode: return .mode(.random)
+        case .system: return .system(.random)
+        case .format: return .format(.random)
+        }
+    }
+    
+    public static func input(_ type: Input.Enum, _ value: String) -> Self {
+        .input(.init(type, value))
+    }
+    
+    public typealias Model = Property
+    public typealias Enum = Property.Enum.Builder
+    
+    public var type: Enum {
+        switch self {
+        case .input(let i): return .input(i.type)
+        case .mode: return .mode
+        case .system(let s): return .system(s.type)
+        case .format(let f): return .format(f.type)
+        }
+    }
+    
+    public var typeEnum: Enum.Enum {
+        self.type.type
+    }
+        
+    public var instance: Instance {
+        switch self {
+        case .input(let i): return i
+        case .mode(let m): return m
+        case .system(let s): return s
+        case .format(let f): return f
+        }
+    }
+    
+    public var value: Str {
+        switch self {
+        case .input(let i): return i.str
+        case .mode(let m): return .init(enumerable: m)
+        case .system(let s): return .init(enumerable: s)
+        case .format(let f): return .init(enumerable: f)
+        }
+    }
+    
+    public var debug: Debug {
+        .init(storage: [
+            "-id": self.id,
+            "type id": self.type.id,
+            "type rawValue": self.type.rawValue,
+            "typeEnum id": self.typeEnum.id,
+            "typeEnum rawValue": self.typeEnum.rawValue,
+            "value id": self.value.id,
+            "value rawValue": self.value.rawValue,
+            "instance id": self.instance.id
+        ])
     }
     
 }
 
-#Preview {
-    PropertyBuilderView()
-}
+//struct PropertyBuilderView: View {
+//
+//    @State private var builder: Property.Builder
+//    
+//    init(builder: Property.Builder) {
+//        self._builder = .init(initialValue: builder)
+//    }
+//    
+//    init() {
+//        self.init(builder: .random)
+//    }
+//
+//    var body: some View {
+//        ForEach(self.builder.debugStrings, id:\.self) {
+//            Text($0)
+//        }
+//    }
+//    
+//}
+//
+//#Preview {
+//    Previewer { PropertyBuilderView() }
+//}
 
 
 //extension Property.Builder {
@@ -78,7 +134,7 @@ struct PropertyBuilderView: View {
 ////            }
 ////        }
 //
-////    public func asEnumerable<T: Enumerable>(_ type: T.Type = T.self) -> T? {
+////    public func asEnumerable<T: Enumerable.Interface>(_ type: T.Type = T.self) -> T? {
 ////        switch self {
 ////        case .mode(let modeEnum):
 ////            return modeEnum as? T
@@ -128,3 +184,4 @@ struct PropertyBuilderView: View {
 //
 //}
 //
+

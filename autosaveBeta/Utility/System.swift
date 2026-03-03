@@ -10,55 +10,42 @@ import Core
 
 public struct System {
     
-    public enum Enum: Enumerable {
+    public enum Enum: Enumerable.Enum.Interface {
             
         case playstation, nintendo, xbox, os
         
         public var builders: Builder.Cases {
             switch self {
               case .playstation:
-                return Builder.PlayStationEnum.systems
+                return Builder.PlayStationEnum.cases.map(Builder.playstation)
               case .nintendo:
-                return Builder.NintendoEnum.systems
+                return Builder.NintendoEnum.cases.map(Builder.nintendo)
             case .xbox:
-                return Builder.XboxEnum.systems
+                return Builder.XboxEnum.cases.map(Builder.xbox)
             case .os:
-                return Builder.OSEnum.systems
-            }
-        }
-        
-        public var rawValue: String {
-            switch self {
-            case .playstation: return "PlayStation"
-            case .nintendo: return "Nintendo"
-            case .xbox: return "Xbox"
-            case .os: return "Operating System"
-            }
-        }
-        
-        public var title: String {
-            switch self {
-            case .os:
-                return self.rawValue.pluralize()
-            default:
-                return "\(self.rawValue) Systems"
+                return Builder.OSEnum.cases.map(Builder.os)
             }
         }
 
     }
     
-    public enum Builder: Encapsulable {
-        
-        public static var allCases: Cases {
-            Enum.allCases.flatMap(\.builders)
-        }
+    public enum Builder: Enumerable.Enum.Builder.Interface {
         
         case playstation(PlayStationEnum)
         case nintendo(NintendoEnum)
         case xbox(XboxEnum)
         case os(OSEnum)
 
-        public var enumeror: Enumeror {
+        public var type: Enum {
+            switch self {
+            case .playstation: return .playstation
+            case .nintendo: return .nintendo
+            case .os: return .os
+            case .xbox: return .xbox
+            }
+        }
+        
+        public var instance: Instance {
             switch self {
             case .playstation(let p): return p
             case .nintendo(let n): return n
@@ -71,17 +58,33 @@ public struct System {
     
 }
 
+extension System.Enum {
+    
+    public var rawValue: String {
+        switch self {
+        case .playstation: return "PlayStation"
+        case .nintendo: return "Nintendo"
+        case .xbox: return "Xbox"
+        case .os: return "Operating System"
+        }
+    }
+    
+    public var title: String {
+        switch self {
+        case .os:
+            return self.rawValue.pluralize()
+        default:
+            return "\(self.rawValue) Systems"
+        }
+    }
+    
+}
+
 extension System.Builder {
     
-    public typealias Builder = System.Builder
-    public typealias Enum = System.Enum
     public typealias FormatBuilder = Format.Builder
-    
-    public enum PlayStationEnum: Enumerable {
         
-        public static var systems: Builder.Cases {
-            Self.cases.map(Builder.playstation)
-        }
+    public enum PlayStationEnum: Enumerable.Interface {
         
         case ps1, ps2, ps3, ps4, ps5, psp
         
@@ -97,11 +100,7 @@ extension System.Builder {
         }
     }
     
-    public enum NintendoEnum: Enumerable {
-        
-        public static var systems: Builder.Cases {
-            Self.cases.map(Builder.nintendo)
-        }
+    public enum NintendoEnum: Enumerable.Interface {
         
         case snes, nsw, wii, wiiu, gamecube, n3ds
         
@@ -117,12 +116,8 @@ extension System.Builder {
         }
     }
     
-    public enum OSEnum: Enumerable {
-        
-        public static var systems: Builder.Cases {
-            Self.cases.map(Builder.os)
-        }
-        
+    public enum OSEnum: Enumerable.Interface {
+
         case mac, win
         
         public var rawValue: String {
@@ -133,12 +128,8 @@ extension System.Builder {
         }
     }
     
-    public enum XboxEnum: Enumerable {
-        
-        public static var systems: Builder.Cases {
-            Self.cases.map(Builder.xbox)
-        }
-        
+    public enum XboxEnum: Enumerable.Interface {
+
         case xbox, x360, one
         
         public var rawValue: String {
@@ -147,15 +138,6 @@ extension System.Builder {
             case .x360: return "Xbox 360"
             case .one:  return "Xbox One"
             }
-        }
-    }
-    
-    public var system: Enum {
-        switch self {
-        case .playstation: return .playstation
-        case .nintendo: return .nintendo
-        case .os: return .os
-        case .xbox: return .xbox
         }
     }
     

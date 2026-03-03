@@ -35,15 +35,15 @@ public struct Translator {
      case format(Format.Builder)
      */
     
-    public typealias AttributeBuilders = [Attribute.Builder]
-    public typealias PropertyBuilders = Property.Builder.Collector
-    
-    public typealias AttributeCollector = Attribute.Builder.Collector
-    public typealias PropertyCollector = Property.Builder.Collector
-    
-    public static func toProperties(_ attrs: AttributeBuilders) -> PropertyCollector {
-        .init(collection: attrs.flatMap(\.properties))
-    }
+//    public typealias AttributeBuilders = [Attribute.Builder]
+//    public typealias PropertyBuilders = Property.Builder.Collector
+//    
+//    public typealias AttributeCollector = Attribute.Builder.Collector
+//    public typealias PropertyCollector = Property.Builder.Collector
+//    
+//    public static func toProperties(_ attrs: AttributeBuilders) -> PropertyCollector {
+//        .init(collection: attrs.flatMap(\.properties))
+//    }
     
 }
 

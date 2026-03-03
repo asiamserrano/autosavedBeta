@@ -7,6 +7,7 @@
 
 import Foundation
 import Core
+import SwiftUI
 
 extension Game.Builder {
     
@@ -48,14 +49,26 @@ extension Game.Builder: Game.Object.Interface {
 extension Game.Builder: ModelKit.Model.Builder.Interface {
     
     public typealias Model = Game
+    
+    public static var modelType: ModelEnum { .game }
 
     public var compound: Compound {
         self.compoundForSwiftData
     }
-
-//    public var id: String {
-//        self.idForSwiftData
-//    }
+    
+    public var debug: Debug {
+        .init(storage: [
+            "title id": self.titleStr.id,
+            "title rawValue": self.titleStr.rawValue,
+            "title": self.title,
+            "release": self.release.long,
+            "status": self.status.rawValue,
+            "boxart": "has boxart: \(self.boxart == nil ? "false" : "true")",
+            "added": self.added.long,
+            "compound key": self.compound_key
+        ])
+    }
+    
 }
 
 extension Game.Builder: Defaultable {

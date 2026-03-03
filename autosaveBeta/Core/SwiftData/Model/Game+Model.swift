@@ -57,6 +57,37 @@ public final class Game: ModelKit.Model.Interface {
     public var builder: Builder {
         .init(title: self.title, release: self.release, status: self.status_bool, boxart: self.boxart, added: self.added)
     }
+    
+    public var rawValue: String {
+        "\(self.title) (\(self.release.dashes))"
+    }
+    
+    public var debug: Builder.Debug {
+        .init(storage: [
+            "title": self.title,
+            "added": self.added.dashes,
+            "compound_key": self.compound_key,
+            "release": self.release.dashes,
+            "status_bool": self.status_bool.description,
+            "has boxart?": self.boxart == nil ? "no" : "yes",
+            "# of platforms": self.platforms.count.description,
+            "# of properties": self.properties.count.description
+        ])
+    }
+    
+    public var persistent: Persistent.Model { .game(self) }
+    
+//    public var attributes: Attribute.Model.Collection {
+//        .init(collection: self.properties.map(Attribute.Model.property) + self.platforms.map(Attribute.Model.platform))
+//    }
+    
+    /*
+     public private(set) var added: Date
+     public private(set) var title: String
+     public private(set) var release: Date
+     public private(set) var status_bool: Bool
+     public private(set) var boxart: Data?
+     */
  
 //    public required init(builder: Builder) {
 //        self.uuid = builder.uuid
@@ -71,14 +102,3 @@ public final class Game: ModelKit.Model.Interface {
 //    public var model: Generic.Model { .game(self) }
         
 }
-
-//extension Game: GameObjectProtocol {
-//    
-//    public var status: Game.Status { .init(self.status_bool) }
-//    
-//    public var attributes: Attributes {
-//        .defaultValue
-////        self.properties.collection.union(self.platforms.collection)
-//    }
-//    
-//}

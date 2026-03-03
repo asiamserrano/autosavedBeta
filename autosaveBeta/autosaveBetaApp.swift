@@ -11,9 +11,7 @@ import SwiftData
 @main
 struct autosaveBetaApp: App {
     var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            Item.self,
-        ])
+        let schema = Schema([])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
         do {
@@ -25,7 +23,7 @@ struct autosaveBetaApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            EmptyView()
         }
         .modelContainer(sharedModelContainer)
     }

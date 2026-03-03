@@ -9,9 +9,21 @@ import Foundation
 import Core
 
 extension Platform.Builder: Iterable {
+    
+    public static var modelType: ModelEnum { .platform }
 
     public static var cases: Cases {
         System.Builder.cases.flatMap(\.platformBuilders)
+    }
+    
+    public var debug: Debug {
+        .init(storage: [
+            "system id": self.system.id,
+            "system rawValue": self.system.rawValue,
+            "format id": self.format.id,
+            "format rawValue": self.format.rawValue,
+            "-id": self.id
+        ])
     }
     
 }

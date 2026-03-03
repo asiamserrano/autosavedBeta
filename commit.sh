@@ -2,6 +2,7 @@
 
 # add all swift files
 git add \*.swift
+git add PreviewStores/*
 
 # add specific non-swift files 
 git add .gitignore

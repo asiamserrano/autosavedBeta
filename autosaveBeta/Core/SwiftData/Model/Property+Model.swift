@@ -10,7 +10,7 @@ import SwiftData
 import Core
 
 @Model
-public final class Property: ModelKit.Model.Interface {
+public final class Property: Attribute.Model.Interface {
     
     public private(set) var uuid: UUID
     public private(set) var compound_key: String
@@ -49,6 +49,31 @@ public final class Property: ModelKit.Model.Interface {
     public var type: Builder.Enum {
         .init(self.type_id)
     }
+    
+    public var typeEnum: Builder.Enum.Enum {
+        self.type.type
+    }
+    
+    public var rawValue: String {
+        "(\(self.type.rawValue)) \(self.value_rawValue)"
+    }
+    
+    public var debug: Builder.Debug {
+        .init(storage: [
+            "uuid": self.uuid.uuidString,
+            "compound_key": self.compound_key,
+            "type_id": self.type_id,
+            "value_id": self.value_id,
+            "value_rawValue": self.value_rawValue,
+            "# of platforms": self.platforms.count.description
+        ])
+    }
+    
+    public var attribute: Attribute.Builder? {
+        self.builder.attribute
+    }
+    
+    public var persistent: Persistent.Model { .property(self) }
 
 //    public init(uuid: UUID, builder: Builder) {
 //        self.uuid = uuid

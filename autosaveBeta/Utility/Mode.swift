@@ -10,7 +10,7 @@ import Core
 
 public struct Mode {
     
-    public enum Enum: Enumerable {
+    public enum Enum: Enumerable.Interface {
         
         case single, two, multi
         

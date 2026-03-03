@@ -1,13 +1,63 @@
-////
-////  Attribute+Builder.swift
-////  autosaveBeta
-////
-////  Created by Asia Serrano on 2/11/26.
-////
 //
-//import Foundation
-//import Core
+//  Attribute+Builder.swift
+//  autosaveBeta
 //
+//  Created by Asia Serrano on 2/11/26.
+//
+
+import Foundation
+import Core
+
+extension Attribute.Builder {
+    
+    public typealias Enum = Attribute.Enum.Builder
+    
+    public static var random: Self {
+        .random(Self.Container.Key.random)
+    }
+    
+    public static func random(_ type: Self.Container.Key.Enum) -> Self {
+        switch type {
+        case .input: return .input(.random)
+        case .mode: return .mode(.random)
+        case .platform: return .platform(.random)
+        }
+    }
+    
+    public static func random(_ key: Self.Container.Key) -> Self {
+        switch key {
+        case .input(let i): return .input(.random(i))
+        case .mode: return .mode(.random)
+        case .platform: return .platform(.random)
+        }
+    }
+    
+    public var type: Enum {
+        switch self {
+        case .input(let i): .input(i.type)
+        case .mode: .mode
+        case .platform: .platform
+        }
+    }
+    
+    public var instance: Instance {
+        switch self {
+        case .input(let i): return i
+        case .mode(let m): return m
+        case .platform(let p): return p
+        }
+    }
+    
+    public var properties: Property.Builder.Collector {
+        switch self {
+        case .input(let builder): return .init(.input(builder))
+        case .mode(let m): return .init(.mode(m))
+        case .platform(let builder): return .init(.system(builder.system), .format(builder.format))
+        }
+    }
+    
+}
+
 //extension Attribute.Builder {
 //    
 ////    public typealias Model = Generic.Attribute.Model

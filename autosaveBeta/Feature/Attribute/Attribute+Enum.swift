@@ -11,9 +11,9 @@ import Core
 
 extension Attribute.Enum {
     
-    public var builderCases: Builder.Cases {
+    public var builders: Builder.Cases {
         switch self {
-        case .input: return Input.Enum.cases.map { .input($0) }
+        case .input: return Input.Enum.cases.map(Builder.input)
         case .mode: return .init(.mode)
         case .platform: return .init(.platform)
         }
@@ -25,20 +25,18 @@ extension Attribute.Enum.Builder {
     
     public typealias Enum = Attribute.Enum
     
-    public static var allCases: Cases { Enum.cases.flatMap(\.builderCases) }
-
-    public var enumeror: Enumeror {
-        switch self {
-        case .input(let i): return i
-        default: return self.type
-        }
-    }
-    
     public var type: Enum {
         switch self {
         case .input: return .input
         case .mode: return .mode
         case .platform: return .platform
+        }
+    }
+    
+    public var instance: Instance {
+        switch self {
+        case .input(let i): return i
+        default: return self.type
         }
     }
     

@@ -10,7 +10,11 @@ import Core
 
 extension Property.Enum {
     
-    public var builderCases: Builder.Cases {
+    public static var platforms: Cases {
+        [ .system, .format ]
+    }
+    
+    public var builders: Builder.Cases {
         switch self {
         case .input: return Input.Enum.cases.map { Builder.input($0) }
         case .mode: return .init(.mode)
@@ -19,22 +23,17 @@ extension Property.Enum {
         }
     }
     
+    public var isPlatform: Bool {
+        Self.platforms.contains(self)
+    }
+    
 }
 
 extension Property.Enum.Builder {
     
-    public static var allCases: Cases { Property.Enum.cases.flatMap(\.builderCases) }
-    
-    public var enumeror: Enumeror {
-        switch self {
-        case .input(let i): return i
-        case .mode: return self.type
-        case .system(let s): return s
-        case .format(let f): return f
-        }
-    }
-    
-    public var type: Property.Enum {
+    public typealias Enum = Property.Enum
+        
+    public var type: Enum {
         switch self {
         case .input: return .input
         case .mode: return .mode
@@ -43,5 +42,13 @@ extension Property.Enum.Builder {
         }
     }
     
+    public var instance: Instance {
+        switch self {
+        case .input(let i): return i
+        case .mode: return self.type
+        case .system(let s): return s
+        case .format(let f): return f
+        }
+    }
     
 }

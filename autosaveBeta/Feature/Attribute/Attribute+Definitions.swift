@@ -8,9 +8,89 @@
 import Foundation
 import Core
 
+public enum Attribute {
+    
+    public enum Enum: Enumerable.Enum.Interface {
+        case input, mode, platform
+        
+        public enum Builder: Enumerable.Enum.Builder.Interface {
+            case input(Input.Enum)
+            case mode, platform
+        }
+    }
+    
+    public enum Builder: BuilderKit.Implementation.Interface {
+        case input(Input.Builder)
+        case mode(Mode.Enum)
+        case platform(Platform.Builder)
+        
+
+    }
+    
+    // MARK: remove if not needed for model context
+    
+    public enum Model: Compoundable.Interface {
+        
+        public protocol Interface: ModelKit.Model.Interface  {
+            var games: [Game] { get }
+        }
+        
+        public typealias Instance = any Interface
+        public typealias Collection = Collectable.Instance<Self>
+        
+        case property(Property)
+        case platform(Platform)
+        
+        public var instance: Instance {
+            switch self {
+            case .property(let property): return property
+            case .platform(let platform): return platform
+            }
+        }
+        
+        public var type: Persistent.Model.Enum {
+            self.instance.modelType
+        }
+                
+        public var compound: Compound {
+            .init(first: self.type, last: self.instance.compound_key)
+        }
+        
+        public var games: [Game] {
+            self.instance.games
+        }
+        
+    }
+    
+//    public typealias Builders = Collectable.Instance<Attribute.Builder>
+    
+}
+
+//extension Attribute.Builders {
+//    
+//    public mutating func add(_ property: Property) -> Void {
+//        if let element = property.builder.attribute {
+//            self.add(element)
+//        }
+//    }
+//    
+//    public mutating func add(_ platform: Platform) -> Void {
+//        self.add(platform.attribute)
+//    }
+//    
+////    public init(_ properties: [Property], _ platforms: [Platform]) {
+////        self.init(collection: properties.compactMap(\.builder.attribute) )
+////    }
+//    
+//    public init(_ properties: [Property], _ platforms: [Platform]) {
+//        self.init(collection: properties.compactMap(\.builder.attribute) )
+//    }
+//    
+//}
+
 //public struct Attribute {
 //    
-//    public enum Enum: Enumerable {
+//    public enum Enum: Enumerable.Interface {
 //        case input, mode, platform
 //    }
 //    
@@ -24,7 +104,7 @@ import Core
 //    
 ////    public enum Model: GenericModelProtocol {
 ////        
-////        public enum Enum: Enumerable {
+////        public enum Enum: Enumerable.Interface {
 ////            case property, platform
 ////            
 ////            public var modelType: Generic.Model.Enum {
@@ -93,7 +173,7 @@ import Core
 //    
 //    public enum Model: GenericModelProtocol {
 //        
-//        public enum Enum: Enumerable {
+//        public enum Enum: Enumerable.Interface {
 //            case game, property, platform
 //            
 ////            public var attributeType: Builder.Enum {
@@ -107,7 +187,7 @@ import Core
 //        
 //        public enum Builder: GenericBuilderProtocol {
 //            
-//            public enum Enum: Enumerable {
+//            public enum Enum: Enumerable.Interface {
 //                case game, attribute
 //            }
 //            
